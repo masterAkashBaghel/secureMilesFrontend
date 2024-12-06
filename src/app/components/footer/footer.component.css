@@ -19,7 +19,7 @@
 }
 
 .footer-section ul li a:hover {
-  color: yellow;
+  color: yellow !important; /* Use !important to ensure it overrides other styles */
 }
 
 .social-icons a {
@@ -29,7 +29,7 @@
 }
 
 .social-icons a:hover {
-  color: yellow;
+  color: yellow !important; /* Use !important to ensure it overrides other styles */
 }
 
 .footer-section a {
@@ -39,5 +39,5 @@
 }
 
 .footer-section a:hover {
-  color: yellow;
+  color: yellow !important; /* Use !important to ensure it overrides other styles */
 }

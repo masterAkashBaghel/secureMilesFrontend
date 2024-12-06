@@ -4,6 +4,7 @@ import { HeroSectionComponent } from '../hero-section/hero-section.component';
 import { StaticsComponent } from '../statics/statics.component';
 import { FeaturesComponent } from '../features/features.component';
 import { FooterComponent } from '../footer/footer.component';
+import { TestimonialComponent } from '../testimonial/testimonial.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ import { FooterComponent } from '../footer/footer.component';
     StaticsComponent,
     FeaturesComponent,
     FooterComponent,
+    TestimonialComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

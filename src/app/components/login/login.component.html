@@ -3,10 +3,27 @@
     <div class="row justify-content-center align-items-center no-gutters">
       <!-- Login Form Block -->
       <div class="col-md-6 col-lg-5 login-form-block p-4">
-        <h3 class="text-center mb-4 primaryColor fw-bold">Welcome Back !</h3>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+          "
+        >
+          <img
+            src="/public/assets/images/logo3.png"
+            alt="SecureMiles Logo"
+            class="img-fluid"
+            style="width: 150px"
+          />
+          <h3 class="text-center primaryColor">
+            Welcome back to
+            <span style="color: rgb(221, 12, 162)">SecureMiles</span>
+          </h3>
+        </div>
         <form>
-          <div class="mb-3 mt-4">
-            <label for="email" class="form-label">Email address</label>
+          <div class="mb-3">
             <input
               type="email"
               class="form-control"
@@ -15,7 +32,6 @@
             />
           </div>
           <div class="mb-3 mt-3">
-            <label for="password" class="form-label">Password</label>
             <input
               type="password"
               class="form-control"

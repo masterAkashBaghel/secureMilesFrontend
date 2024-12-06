@@ -1,0 +1,63 @@
+<div class="signup-page d-flex align-items-center">
+  <div class="container container-fluid justify-content-center">
+    <div class="row justify-content-center align-items-center no-gutters">
+      <!-- Sign-Up Form Block -->
+      <div class="col-md-6 col-lg-5 signup-form-block p-4">
+        <h3 class="text-center mb-2 primaryColor mt-3">
+          Create Your Account To Get Started
+        </h3>
+        <form class="form-style">
+          <div class="mb-3 mt-4">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter your full name"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Create a password"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+              placeholder="Re-enter your password"
+            />
+          </div>
+          <button type="submit" class="btn w-100 btnColor mt-3">Sign Up</button>
+        </form>
+        <p class="text-center mt-3">
+          Already have an account?
+          <a [routerLink]="['/login']" class="signup-link primaryColor"
+            >Login here</a
+          >
+        </p>
+      </div>
+
+      <!-- Image Block -->
+      <div class="col-md-6 col-lg-6 signup-image-block">
+        <img
+          src="/public/assets/images/car2.png"
+          alt="Sign-Up Illustration"
+          style="width: 90%"
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+</div>

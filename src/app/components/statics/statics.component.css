@@ -1,0 +1,28 @@
+.statistics-section {
+    background-color: #ffffff;
+  }
+  
+  .stat-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .stat-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .count {
+    font-size: 2.5rem;
+  }
+  
+  .text-primary {
+    color: #5624d0;
+  }
+
+    .headingColor {
+    color: rgb(58, 32, 108);
+  }
+  

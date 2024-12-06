@@ -1,0 +1,38 @@
+nav.navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   }
+  
+  nav.navbar-brand img {
+    max-height: 50px;
+  }
+  
+  nav .nav-link {
+    font-size: 16px;
+    margin-right: 10px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+  }
+  /* add on hover for nav links */
+  nav .nav-link:hover {
+    color: rgb(255, 200, 0);
+  }
+  
+  nav .btn-primary {
+    padding: 5px 15px;
+     
+  }
+  .custom-navbar {
+    background-color: rgb(47, 26, 86);
+     height: 100px;
+  
+}
+
+.btn-white-bg {
+    background-color: white;
+    color: black; /* Adjust text color for contrast */
+}
+
+.btn-green-bg {
+    background-color: green;
+    color: white; /* Adjust text color for contrast */
+}

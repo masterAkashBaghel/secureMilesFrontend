@@ -1,0 +1,32 @@
+.contact-section {
+    background: linear-gradient(135deg, #ebebf7, #f5f5fc, #ffffff);
+    padding: 50px 0;
+  }
+  
+  .contact-section h2 {
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .contact-section .form-control {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-section button {
+    background-color: #10081b;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .contact-section button:hover {
+    background-color: #564392;
+    color: #fff;
+  }
+  
+  .contact-section img {
+    max-width: 70%;
+    height: auto;
+    margin-top: 20px;
+  }
+  

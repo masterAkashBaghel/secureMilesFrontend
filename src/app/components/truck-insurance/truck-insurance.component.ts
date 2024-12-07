@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'app-truck-insurance',
   standalone: true,
   templateUrl: './truck-insurance.component.html',
-  styleUrls: ['./truck-insurance.component.css']
+  styleUrls: ['./truck-insurance.component.css'],
 })
 export class TruckInsuranceComponent {
   modalInstance: any;
@@ -26,6 +26,8 @@ export class TruckInsuranceComponent {
 
   // Close Modal
   closeModal() {
+    console.log('Closing modal');
+    console.log(this.modalInstance);
     if (this.modalInstance) {
       this.modalInstance.hide();
     }

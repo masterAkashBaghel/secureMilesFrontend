@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-insurance',
+  standalone: true,
   templateUrl: './car-insurance.component.html',
   styleUrls: ['./car-insurance.component.css'],
 })
@@ -25,6 +26,7 @@ export class CarInsuranceComponent {
 
   // Close Modal
   closeModal() {
+    console.log('Closing modal');
     if (this.modalInstance) {
       this.modalInstance.hide();
     }

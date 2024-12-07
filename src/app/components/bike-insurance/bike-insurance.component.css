@@ -2,12 +2,13 @@
 .hero-section {
     background: linear-gradient(135deg, #d1dff4, #e3cfe2);
     color: #333;
-    padding: 60px 0;
+    max-height: 500px;
   }
   
   .hero-section h1 {
     font-size: 2.8rem;
     margin-bottom: 20px;
+    color : #2F1A56;
   }
   
   .hero-section p {
@@ -16,10 +17,11 @@
   }
   
   .hero-section img {
+    width: 70%;
+    height: auto;
     max-width: 85%;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
+   }
   
   /* Features Section */
   .features-section .feature-card {
@@ -116,5 +118,10 @@
   
   .btn-primary:hover {
     background-color: #564392;
+  }
+
+
+  .primary{
+    color : #2F1A56;
   }
   

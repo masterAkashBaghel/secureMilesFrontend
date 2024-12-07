@@ -18,14 +18,13 @@
   .hero-section img {
     max-width: 85%;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
+   }
   
   /* Features Section */
   .features-section .feature-card {
     padding: 20px;
     border-radius: 8px;
-    background: #f8f9fa;
+    background: #e9e1f1;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
@@ -43,6 +42,8 @@
   
   /* FAQ Section */
   .faq-section .accordion-item {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -68,7 +69,7 @@
   
   /* CTA Section */
   .cta-section {
-    background: #302457;
+    background: #2F1A56;
     color: #fff;
     padding: 50px 0;
   }
@@ -118,4 +119,19 @@
   .btn-primary:hover {
     background-color: #564392;
   }
+  img {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background-color: transparent;
+  }
+
+
+  .pimary-color {
+    color: #57076f ;
+  }
+
   

@@ -1,0 +1,160 @@
+<section class="hero-section py-5" style="background: linear-gradient(135deg, #D7C3EE, #D1DFF4, #EBE8F7);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h1 class="fw-bold text-dark">Comprehensive Car Insurance Plans</h1>
+        <p class="text-dark">Protect your car with SecureMiles! Our comprehensive insurance plans provide fast claims, reliable coverage, and affordable rates.</p>
+        <button class="btn btn-primary" (click)="openModal()">
+          Get a Quote
+        </button>
+      </div>
+      <div class="col-lg-6">
+        <img src="/public/assets/images/car-insurance-hero.png" alt="Car Insurance" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Why Choose SecureMiles for Car Insurance?</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <img src="/public/assets/images/fast-claims.png" alt="Fast Claims" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Fast Claims</h5>
+            <p class="card-text">We process claims swiftly so that you can get back on the road as soon as possible.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="/public/assets/images/affordable-prices.png" alt="Affordable Prices" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Affordable Prices</h5>
+            <p class="card-text">Get the best protection at the most competitive prices without compromising coverage.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="/public/assets/images/24-7-support.png" alt="24/7 Support" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">24/7 Support</h5>
+            <p class="card-text">Our customer support is available round-the-clock to assist you with any queries or issues.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coverage-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">What’s Covered in Your Car Insurance?</h2>
+    <p class="text-center mb-4">With SecureMiles, we offer complete protection for your vehicle, ensuring you’re covered for all major eventualities.</p>
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <li>Accident Coverage: Protection against vehicle damage in case of accidents.</li>
+          <li>Theft and Vandalism: Protection against theft and vandalism of your vehicle.</li>
+          <li>Fire and Natural Disasters: Coverage for damages caused by fire, floods, or storms.</li>
+          <li>Third-Party Liability: Covers legal and medical expenses for damages caused to others.</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <ul>
+          <li>Glass and Window Damage: Coverage for broken or damaged windows and glass.</li>
+          <li>Towing and Roadside Assistance: Free towing service and emergency assistance.</li>
+          <li>Personal Injury Protection: Coverage for medical expenses following an accident.</li>
+          <li>Comprehensive Coverage: Complete protection for your car, no matter the incident.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-to-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">How to Get Started with Car Insurance</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="step-card">
+          <h5>Step 1: Fill out the Quote Form</h5>
+          <p>Provide basic details about your car and yourself. This will help us offer you the most accurate quote.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <h5>Step 2: Choose Your Coverage</h5>
+          <p>Based on your needs, select the coverage options that suit you best. We offer flexible plans to match your requirements.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <h5>Step 3: Make Payment and Get Insured</h5>
+          <p>Complete your payment process securely, and receive your car insurance policy instantly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section py-5" style="background: #10081B; color: #fff;">
+  <div class="container text-center">
+    <h2 class="mb-4">Get Your Car Insurance Quote Today</h2>
+    <p>Fill out the form to get a customized quote tailored to your needs. Secure your car with the best insurance plan.</p>
+    <button
+        class="btn btn-secondary btn-lg"
+        data-bs-toggle="modal"
+        data-bs-target="#loginModal"
+      >
+        Get Started
+      </button>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  aria-labelledby="loginModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content custom-modal">
+      <div class="modal-header custom-modal-header">
+        <h5 class="modal-title custom-modal-title" id="loginModalLabel">Secure Login</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="custom-modal-text">
+          Please log in to access your account and proceed with getting a car insurance quote. Your security is our top priority.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary custom-cancel-button"
+          (click)="closeModal()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary custom-login-button"
+          (click)="redirectToLogin()"
+        >
+          Go to Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

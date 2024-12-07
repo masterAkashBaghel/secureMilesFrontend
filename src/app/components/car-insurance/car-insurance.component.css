@@ -1,0 +1,74 @@
+.hero-section {
+  background: linear-gradient(135deg, #4CAF50, #81C784);
+  color: white;
+  padding: 80px 0;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+}
+
+.hero-section p {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.hero-section img {
+  max-width: 60%;
+  height: auto;
+  border-radius: 10px;
+  margin-left: 100px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.benefits-section .card {
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.benefits-section .card:hover {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.how-to-section .step-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.cta-section {
+  background: #6A1B9A;
+  color: #ffffff;
+  padding: 40px;
+}
+.modal-content {
+  background: linear-gradient(135deg, #d7c3ee, #d1dff4);
+  border-radius: 8px;
+}
+
+.modal-header {
+  background-color: #564392;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.btn-primary {
+  background-color: #302457;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #564392;
+}

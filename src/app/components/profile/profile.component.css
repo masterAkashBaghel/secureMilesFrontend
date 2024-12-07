@@ -1,0 +1,43 @@
+.profile-page {
+    background: linear-gradient(135deg, #D7C3EE, #D1DFF4, #EBE8F7);
+    min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+ }
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+ 
+  
+  .gradient-btn {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: white;
+  }
+  
+ 
+.gradient-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(135deg, #764ba2, #667eea);
+}
+
+.parent {
+  display: flex;
+  justify-content: space-between;
+
+}

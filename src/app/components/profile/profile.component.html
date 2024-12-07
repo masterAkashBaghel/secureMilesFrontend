@@ -1,0 +1,313 @@
+<div class="profile-page">
+  <div class="container parent">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card p-4 shadow-lg glassmorphism">
+          <div class="text-center mb-4">
+            <h2 class="fw-bw" style="color: rgb(89, 7, 111)">
+              Your Profile Details
+            </h2>
+          </div>
+
+          <!-- Success Message -->
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Profile Details (View Mode) -->
+          <div *ngIf="!isEditMode">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-user"></i> Name
+                </label>
+                <p>{{ userData?.name || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-map-marker-alt"></i> Address
+                </label>
+                <p>{{ userData?.address || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-city"></i> City
+                </label>
+                <p>{{ userData?.city || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-map"></i> State
+                </label>
+                <p>{{ userData?.state || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-mail-bulk"></i> Zip Code
+                </label>
+                <p>{{ userData?.zipCode || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-phone"></i> Phone
+                </label>
+                <p>{{ userData?.phone || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-id-card"></i> Aadhaar Number
+                </label>
+                <p>{{ userData?.aadhaarNumber || "N/A" }}</p>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-id-card-alt"></i> PAN
+                </label>
+                <p>{{ userData?.pan || "N/A" }}</p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-primary w-100 gradient-btn"
+              (click)="toggleEditMode()"
+            >
+              Edit Profile
+            </button>
+          </div>
+
+          <!-- Profile Form (Edit Mode) -->
+          <div *ngIf="isEditMode">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="name" class="form-label">
+                  <i class="fas fa-user"></i> Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Enter your name"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('name')?.invalid &&
+                    profileForm.get('name')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Name is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="address" class="form-label">
+                  <i class="fas fa-map-marker-alt"></i> Address
+                </label>
+                <input
+                  id="address"
+                  type="text"
+                  class="form-control"
+                  formControlName="address"
+                  placeholder="Enter your address"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('address')?.invalid &&
+                    profileForm.get('address')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Address is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="city" class="form-label">
+                  <i class="fas fa-city"></i> City
+                </label>
+                <input
+                  id="city"
+                  type="text"
+                  class="form-control"
+                  formControlName="city"
+                  placeholder="Enter your city"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('city')?.invalid &&
+                    profileForm.get('city')?.touched
+                  "
+                  class="text-danger"
+                >
+                  City is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="state" class="form-label">
+                  <i class="fas fa-map"></i> State
+                </label>
+                <input
+                  id="state"
+                  type="text"
+                  class="form-control"
+                  formControlName="state"
+                  placeholder="Enter your state"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('state')?.invalid &&
+                    profileForm.get('state')?.touched
+                  "
+                  class="text-danger"
+                >
+                  State is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="zipCode" class="form-label">
+                  <i class="fas fa-mail-bulk"></i> Zip Code
+                </label>
+                <input
+                  id="zipCode"
+                  type="text"
+                  class="form-control"
+                  formControlName="zipCode"
+                  placeholder="Enter your zip code"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('zipCode')?.invalid &&
+                    profileForm.get('zipCode')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Zip code is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="phone" class="form-label">
+                  <i class="fas fa-phone"></i> Phone
+                </label>
+                <input
+                  id="phone"
+                  type="text"
+                  class="form-control"
+                  formControlName="phone"
+                  placeholder="Enter your phone number"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('phone')?.invalid &&
+                    profileForm.get('phone')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Valid phone number is required.
+                </div>
+              </div>
+              <!-- dob -->
+              <div class="mb-3">
+                <label for="dob" class="form-label">
+                  <i class="fas fa-calendar"></i> Date of Birth
+                </label>
+                <input
+                  id="dob"
+                  type="date"
+                  class="form-control"
+                  formControlName="dob"
+                  placeholder="Enter your Date of Birth"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('dob')?.invalid &&
+                    profileForm.get('dob')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Date of Birth is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="aadhaarNumber" class="form-label">
+                  <i class="fas fa-id-card"></i> Aadhaar Number
+                </label>
+                <input
+                  id="aadhaarNumber"
+                  type="text"
+                  class="form-control"
+                  formControlName="aadhaarNumber"
+                  placeholder="Enter your Aadhaar number"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('aadhaarNumber')?.invalid &&
+                    profileForm.get('aadhaarNumber')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Aadhaar number is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="pan" class="form-label">
+                  <i class="fas fa-id-card-alt"></i> PAN
+                </label>
+                <input
+                  id="pan"
+                  type="text"
+                  class="form-control"
+                  formControlName="pan"
+                  placeholder="Enter your PAN"
+                />
+                <div
+                  *ngIf="
+                    profileForm.get('pan')?.invalid &&
+                    profileForm.get('pan')?.touched
+                  "
+                  class="text-danger"
+                >
+                  PAN is required.
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primary w-100 gradient-btn"
+                [disabled]="profileForm.invalid"
+              >
+                Update Profile
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5 d-flex align-items-center justify-content-center">
+        <img
+          src="/public/assets/images/account.png"
+          alt="SecureMiles"
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+</div>

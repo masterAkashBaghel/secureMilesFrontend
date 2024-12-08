@@ -22,24 +22,52 @@
             <span style="color: rgb(221, 12, 162)">SecureMiles</span>
           </h3>
         </div>
-        <form>
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+          class="form-style"
+        >
           <div class="mb-3">
             <input
               type="email"
               class="form-control"
-              id="email"
+              formControlName="email"
               placeholder="Enter your email"
             />
+            <div
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
+              class="text-danger"
+            >
+              A valid email is required.
+            </div>
           </div>
-          <div class="mb-3 mt-3">
+          <div class="mb-3">
             <input
               type="password"
               class="form-control"
-              id="password"
+              formControlName="password"
               placeholder="Enter your password"
             />
+            <div
+              *ngIf="
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+              "
+              class="text-danger"
+            >
+              Password is required (min 6 characters).
+            </div>
           </div>
-          <button type="submit" class="btn w-100 btnColor mt-3">Login</button>
+          <button
+            type="submit"
+            class="btn w-100 btnColor mt-3"
+            [disabled]="loginForm.invalid"
+          >
+            Login
+          </button>
         </form>
         <p class="text-center mt-3">
           Don’t have an account?
@@ -47,17 +75,21 @@
             >Sign up here</a
           >
         </p>
-        <p class="mt-3 text-center">
+         <p class="mt-3 text-center">
           <a routerLink="/forgot-password" class="text-decoration-none">
             Forgot Password?
           </a>
         </p>
+         <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+ 
       </div>
 
       <!-- Image Block -->
       <div class="col-md-6 col-lg-6 login-image-block">
         <img
-          src="/public/assets/images/car1.png"
+          src="/public/assets/images/login.png"
           alt="Login Illustration"
           class="img-fluid"
         />

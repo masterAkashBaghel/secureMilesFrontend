@@ -33,18 +33,38 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/contact">Contact Us</a>
         </li>
-        <li class="nav-item">
+
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/proposals">Proposals</a>
+        </li>
+
+        <!-- Display Login and Sign Up buttons only when the user is NOT logged in -->
+        <li *ngIf="!isLoggedIn()" class="nav-item">
           <a
             class="btn btn-primary nav-link text-green btn-green-bg"
             [routerLink]="['/login']"
             >Login</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="!isLoggedIn()" class="nav-item">
           <a
             class="btn btn-primary nav-link text-black btn-white-bg"
             [routerLink]="['/signup']"
             >Sign Up</a
+          >
+        </li>
+
+        <!-- Display Profile and Logout buttons only when the user is logged in -->
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/profile">
+            <i class="fas fa-user"></i> Profile
+          </a>
+        </li>
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a
+            class="btn btn-primary nav-link text-white btn-danger-bg"
+            (click)="logout()"
+            >Logout</a
           >
         </li>
       </ul>

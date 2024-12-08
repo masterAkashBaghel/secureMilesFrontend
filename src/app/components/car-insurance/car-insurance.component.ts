@@ -1,16 +1,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-car-insurance',
   standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './car-insurance.component.html',
   styleUrls: ['./car-insurance.component.css'],
 })
 export class CarInsuranceComponent {
   modalInstance: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
+
+  // Check if user is logged in
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
   // Open Modal
   openModal() {
@@ -39,6 +48,23 @@ export class CarInsuranceComponent {
   redirectToLogin() {
     this.closeModal(); // Close the modal first
     this.router.navigate(['/login']);
+  }
+
+  // Redirect to Car Policy Page
+  redirectToCarPolicy() {
+    this.closeModal(); // Close the modal first
+    this.router.navigate(['/insurance']);
+  }
+
+  // Handle Get Started button click
+  handleGetStarted() {
+    console.log('Get Started clicked');
+    console.log('Is logged in:', this.isLoggedIn());
+    if (this.isLoggedIn()) {
+      this.redirectToCarPolicy();
+    } else {
+      this.openModal();
+    }
   }
 
   // Remove leftover modal backdrop

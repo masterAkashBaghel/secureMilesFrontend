@@ -10,7 +10,7 @@
           Protect your car with SecureMiles! Our comprehensive insurance plans
           provide fast claims, reliable coverage, and affordable rates.
         </p>
-        <button class="btn btn-primary" (click)="openModal()">
+        <button class="btn btn-primary" (click)="handleGetStarted()">
           Get a Quote
         </button>
       </div>
@@ -189,7 +189,7 @@
     <button
       class="btn btn-secondary btn-lg"
       data-bs-toggle="modal"
-      data-bs-target="#loginModal"
+      (click)="handleGetStarted()"
     >
       Get Started
     </button>

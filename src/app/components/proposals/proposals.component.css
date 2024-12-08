@@ -1,0 +1,76 @@
+body {
+  background-color: #f0f0f0;
+}
+
+.glassmorphic-card {
+  background: linear-gradient(135deg, #e6d7f7, #e1ebfb, #ededef);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glassmorphic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-sizing: border-box;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glassmorphic-card:hover::before {
+  animation: borderAnimation 500ms forwards;
+}
+
+@keyframes borderAnimation {
+  0% {
+    border-color: transparent;
+  }
+  25% {
+    border-top-color: #2F1A56;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    border-top-color: #2F1A56;
+    border-right-color: #2F1A56;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  75% {
+    border-top-color: #2F1A56;
+    border-right-color: #2F1A56;
+    border-bottom-color: #2F1A56;
+    border-left-color: transparent;
+  }
+  100% {
+    border-color: #2F1A56;
+  }
+}
+
+.glassmorphic-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-title i {
+  margin-right: 8px;
+}
+
+.btn {
+  margin-right: 8px;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}

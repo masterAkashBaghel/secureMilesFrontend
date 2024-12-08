@@ -34,6 +34,10 @@
           <a class="nav-link" routerLink="/contact">Contact Us</a>
         </li>
 
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/proposals">Proposals</a>
+        </li>
+
         <!-- Display Login and Sign Up buttons only when the user is NOT logged in -->
         <li *ngIf="!isLoggedIn()" class="nav-item">
           <a

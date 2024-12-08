@@ -9,7 +9,8 @@ import { CarInsuranceComponent } from './components/car-insurance/car-insurance.
 import { BikeInsuranceComponent } from './components/bike-insurance/bike-insurance.component';
 import { TruckInsuranceComponent } from './components/truck-insurance/truck-insurance.component';
 import { ProfileComponent } from './components/profile/profile.component';
-// Define routes
+import { InsuranceComponent } from './components/insurance/insurance.component';
+import { ProposalComponent } from './components/proposals/proposals.component';
 export const routes: Routes = [
   { path: '', component: DashboardComponent }, // Default route
   { path: 'login', component: LoginComponent },
@@ -19,4 +20,14 @@ export const routes: Routes = [
   { path: 'bike-insurance', component: BikeInsuranceComponent },
   { path: 'truck-insurance', component: TruckInsuranceComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'insurance',
+    component: InsuranceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'proposals',
+    component: ProposalComponent,
+    canActivate: [AuthGuard],
+  },
 ];

@@ -1,26 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../environments/environment'; // Import environment for the backend URL
-import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import {
+  NgxOtpInputComponent,
+  NgxOtpInputComponentOptions,
+} from 'ngx-otp-input';
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, NgxOtpInputComponent],
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.css'],
 })
 export class ResetPasswordComponent {
+  isOtpStep: boolean = true; // Track if the current step is OTP
+  otp: string = ''; // Bind for the OTP
   password: string = ''; // Bind for the new password
   confirmPassword: string = ''; // Bind for the confirm password
   message: string | null = null; // Message for success
   error: string | null = null; // Error message
-  token: string | null = null; // Token from the query parameter
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
-    // Retrieve the token from the URL query parameter
-    this.token = this.route.snapshot.queryParamMap.get('token');
+  otpOptions: NgxOtpInputComponentOptions = {
+    otpLength: 6,
+    autoFocus: true,
+  };
+
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
+  handleOtpChange(event: any): void {
+    console.log('OTP Input:', event);
+    this.otp = event; // Update the OTP value
+  }
+
+  submitOtp(event: any) {
+    // Log the OTP
+    console.log('OTP:', event);
+
+    this.otp = event;
+    console.log('OTP:', this.otp);
+    // Validate OTP
+    if (this.otp.length !== 6) {
+      console.log(this.otp);
+      this.error = 'Invalid OTP.';
+      this.message = null;
+      return;
+    }
+    // Proceed to password reset step
+    this.isOtpStep = false;
+    this.message = '';
+    this.error = '';
   }
 
   submitResetPassword() {
@@ -32,17 +67,23 @@ export class ResetPasswordComponent {
     }
 
     // Prepare the payload with the token and the new password
-    const payload = { token: this.token, newPassword: this.password };
+    const payload = {
+      token: this.otp,
+      newPassword: this.password,
+      confirmPassword: this.confirmPassword,
+    };
 
-    // Make the API call to reset the password
-    const apiUrl = `${environment.apiBaseUrl}/User/reset-password`; // Make sure the API URL is correct
+    // API URL for resetting password
+    const apiUrl = `http://localhost:5294/api/User/reset-password`;
+    console.log(payload);
 
-    // Call the reset password API
+    // Make the API call
     this.http.post(apiUrl, payload).subscribe({
       next: (response: any) => {
         // Handle success
         this.message = 'Your password has been successfully reset.';
         this.error = null;
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         // Handle errors

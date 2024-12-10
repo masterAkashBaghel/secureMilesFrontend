@@ -22,4 +22,9 @@ export class NavbarComponent {
   logout(): void {
     this.authService.logout();
   }
+
+  // Get the role of the user
+  getRole(): string {
+    return this.authService.getRole();
+  }
 }

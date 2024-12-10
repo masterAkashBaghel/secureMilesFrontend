@@ -28,6 +28,7 @@ export class LoginComponent {
     });
   }
 
+  role: string = '';
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -37,7 +38,11 @@ export class LoginComponent {
         (response) => {
           // Store the token and redirect
           this.authService.saveToken(response.token);
-          this.router.navigate(['']); // Redirect after successful login
+          this.role = this.authService.getRole();
+
+          this.authService.getRole() === 'Admin'
+            ? this.router.navigate(['admin-dashboard'])
+            : this.router.navigate(['']);
         },
         (error) => {
           // Handle login failure

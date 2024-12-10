@@ -37,4 +37,22 @@ export class AuthService {
     localStorage.removeItem('authToken');
     this.router.navigate(['/login']); // Redirect to login page
   }
+
+  getRole(): string {
+    const token = this.getToken();
+    if (token) {
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload);
+      const parsedPayload = JSON.parse(decodedPayload);
+      const role =
+        parsedPayload[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ];
+      localStorage.setItem('role', role);
+      return role;
+    }
+    return '';
+  }
+
+  //save role in local storage
 }

@@ -13,35 +13,53 @@
       <div class="card glassmorphic-card shadow-sm h-100">
         <div class="card-body d-flex align-items-center">
           <div>
-            <h5 class="card-title">
+            <h5 class="card-title fw-bold" style="color: rgb(105, 9, 169)">
               <i class="fas fa-car"></i> {{ proposal.vehicleMake }}
               {{ proposal.vehicleModel }}
             </h5>
             <p class="card-text">
-              <strong>Registration:</strong>
-              {{ proposal.vehicleRegistrationNumber }}<br />
-              <strong>Coverage:</strong> ${{
-                proposal.requestedCoverage | number
-              }}<br />
-              <strong>Status:</strong> {{ proposal.status }}<br />
-              <strong>Submitted:</strong>
-              {{ proposal.submissionDate | date : "medium" }}
+              <strong><i class="fas fa-id-card"></i> Registration: </strong>
+              <span class="text-info">{{
+                proposal.vehicleRegistrationNumber
+              }}</span
+              ><br />
+              <strong><i class="fas fa-shield-alt"></i> Coverage:</strong>
+              <span class="text-success"
+                >${{ proposal.requestedCoverage | number }}</span
+              ><br />
+              <strong><i class="fas fa-info-circle"></i> Status: </strong>
+              <span class="text-warning">{{ proposal.status }}</span
+              ><br />
+              <strong
+                ><i class="fas fa-dollar-sign"></i> Premium Amount:</strong
+              >
+              <span class="text-danger">${{ proposal.premiumAmount }}</span
+              ><br />
+              <strong><i class="fas fa-file-alt"></i> Policy Type:</strong>
+              <span class="text-secondary">{{ proposal.policyType }}</span
+              ><br />
+              <strong><i class="fas fa-calendar-alt"></i> Submitted:</strong>
+              <span class="text-muted">{{
+                proposal.submissionDate | date : "medium"
+              }}</span>
             </p>
             <div class="d-flex justify-content-between">
-              <!-- <button
-                class="btn btn-light btn-sm me-2"
-                (click)="openEditModal(proposal)"
-              >
-                <i class="fas fa-pencil-alt"></i> Edit
-              </button> -->
               <button
-                class="btn btn-light btn-sm me-2"
+                *ngIf="proposal.status !== 'Approved'"
+                class="btn btn-danger btn-sm me-2"
                 (click)="deleteProposal(proposal.proposalId)"
               >
                 <i class="fas fa-trash-alt"></i> Delete
               </button>
               <button
-                class="btn btn-light btn-sm"
+                *ngIf="proposal.status === 'Approved'"
+                class="btn btn-success btn-sm me-2"
+                (click)="openPaymentModal(proposal)"
+              >
+                <i class="fas fa-credit-card"></i> Make Payment
+              </button>
+              <button
+                class="btn btn-primary btn-sm"
                 (click)="updateDocument(proposal.proposalId)"
               >
                 <i class="fas fa-upload"></i> Update Document
@@ -53,69 +71,140 @@
             [src]="getRandomImageUrl()"
             alt="Vehicle Image"
             class="img-fluid me-3"
-            style="width: 300px"
+            style="width: 300px; border-radius: 10px"
           />
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Edit Proposal Modal -->
-  <div
-    class="modal fade"
-    id="editProposalModal"
-    tabindex="-1"
-    aria-labelledby="editProposalModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProposalModalLabel">Edit Proposal</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+<!-- Payment Modal -->
+<div
+  class="modal fade"
+  id="paymentModal"
+  tabindex="-1"
+  aria-labelledby="paymentModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paymentModalLabel">
+          <i class="fas fa-credit-card"></i> Make Payment
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <h6 class="text-primary">Proposal Details</h6>
+          <div class="row">
+            <div class="col-6">
+              <p>
+                <i class="fas fa-car text-primary"></i>
+                <strong> Vehicle:</strong> {{ selectedProposal?.vehicleMake }}
+                {{ selectedProposal?.vehicleModel }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                <i class="fas fa-id-card text-primary"></i>
+                <strong> Registration:</strong>
+                {{ selectedProposal?.vehicleRegistrationNumber }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                <i class="fas fa-dollar-sign text-primary"></i>
+                <strong> Coverage:</strong> ${{
+                  selectedProposal?.requestedCoverage | number
+                }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                <i class="fas fa-info-circle text-primary"></i>
+                <strong> Status:</strong> {{ selectedProposal?.status }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                <i class="fas fa-calendar-alt text-primary"></i>
+                <strong> Submitted:</strong>
+                {{ selectedProposal?.submissionDate | date : "medium" }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                <i class="fas fa-file-alt text-primary"></i>
+                <strong> Policy Type:</strong>
+                {{ selectedProposal?.policyType }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                <i class="fas fa-dollar-sign text-primary"></i>
+                <strong> Premium Amount:</strong>
+                <span class="text-danger"
+                  >${{ selectedProposal?.premiumAmount }}</span
+                >
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <form
-            [formGroup]="editProposalForm"
-            (ngSubmit)="submitEditProposal()"
-          >
-            <div class="mb-3">
-              <label for="vehicleMake" class="form-label">Vehicle Make</label>
-              <input
-                id="vehicleMake"
-                class="form-control"
-                formControlName="vehicleMake"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="vehicleModel" class="form-label">Vehicle Model</label>
-              <input
-                id="vehicleModel"
-                class="form-control"
-                formControlName="vehicleModel"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="requestedCoverage" class="form-label"
-                >Requested Coverage</label
-              >
-              <input
-                id="requestedCoverage"
-                type="number"
-                class="form-control"
-                formControlName="requestedCoverage"
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">
-              Update Proposal
-            </button>
-          </form>
-        </div>
+        <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()">
+          <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input
+              type="number"
+              class="form-control"
+              id="amount"
+              formControlName="amount"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="cardNumber" class="form-label">Card Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cardNumber"
+              formControlName="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="cardExpiry" class="form-label">Expiry Date</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cardExpiry"
+              formControlName="cardExpiry"
+              placeholder="MM/YY"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="cardCVC" class="form-label">CVC</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cardCVC"
+              formControlName="cardCVC"
+              placeholder="123"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Submit Payment
+          </button>
+        </form>
       </div>
     </div>
   </div>

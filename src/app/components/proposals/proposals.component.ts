@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProposalService } from '../../services/proposal/proposal.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,7 +16,9 @@ import { of } from 'rxjs';
 })
 export class ProposalComponent implements OnInit {
   proposals: any[] = [];
+  selectedProposal: any;
   editProposalForm: FormGroup;
+  paymentForm: FormGroup;
 
   constructor(
     private proposalService: ProposalService,
@@ -28,6 +29,16 @@ export class ProposalComponent implements OnInit {
       vehicleMake: [''],
       vehicleModel: [''],
       requestedCoverage: [''],
+    });
+
+    this.paymentForm = this.fb.group({
+      transactionId: [''],
+      amount: [''],
+      userId: [''],
+      policyId: [''],
+      cardNumber: [''],
+      cardExpiry: [''],
+      cardCVC: [''],
     });
   }
 
@@ -98,6 +109,37 @@ export class ProposalComponent implements OnInit {
 
   updateDocument(proposalId: number) {
     alert('Document update functionality to be implemented.');
+  }
+
+  openPaymentModal(proposal: any) {
+    this.selectedProposal = proposal;
+    this.paymentForm.patchValue({
+      transactionId: '',
+      amount: proposal.requestedCoverage,
+      userId: proposal.userId,
+      policyId: proposal.policyId,
+      cardNumber: '',
+      cardExpiry: '',
+      cardCVC: '',
+    });
+    const modalElement = document.getElementById('paymentModal');
+    if (modalElement) {
+      const paymentModal = new (window as any).bootstrap.Modal(modalElement);
+      paymentModal.show();
+    } else {
+      console.error('Modal element not found');
+    }
+  }
+
+  submitPayment() {
+    const paymentDetails = this.paymentForm.value;
+    console.log('Payment Details:', paymentDetails);
+    alert('Payment submitted successfully!');
+    const modalElement = document.getElementById('paymentModal');
+    if (modalElement) {
+      const paymentModal = new (window as any).bootstrap.Modal(modalElement);
+      paymentModal.hide();
+    }
   }
 
   // define a function to get a random image URL from an array of URLs

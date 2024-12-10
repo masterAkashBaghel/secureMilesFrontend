@@ -1,5 +1,5 @@
 .glassmorphic {
-  background: linear-gradient(135deg, #D7C3EE, #D1DFF4, #EBE8F7);
+  background: linear-gradient(135deg, #e2daea, #eaedf1, #EBE8F7);
   border-radius: 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -14,6 +14,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .form-container {

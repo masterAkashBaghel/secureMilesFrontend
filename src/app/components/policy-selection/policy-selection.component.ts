@@ -30,6 +30,8 @@ export class PolicySelectionComponent {
       const payload = {
         vehicleId: this.selectedPolicy.vehicleID,
         requestedCoverage: this.selectedPolicy.coverageAmount,
+        policyType: this.selectedPolicy.policyType,
+        premiumAmount: this.selectedPolicy.premiumAmount,
       };
 
       console.log('Proposal Payload:', payload);

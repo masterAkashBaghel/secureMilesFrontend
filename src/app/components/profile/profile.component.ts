@@ -5,6 +5,7 @@ import { UserService } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -43,6 +45,7 @@ export class ProfileComponent implements OnInit {
 
     // Fetch user profile
     this.getUserProfile();
+    this.getRole();
   }
 
   // Get user profile from the backend
@@ -86,5 +89,11 @@ export class ProfileComponent implements OnInit {
   }
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
+  }
+
+  // get the role
+  getRole(): string {
+    console.log(this.authService.getRole());
+    return this.authService.getRole();
   }
 }

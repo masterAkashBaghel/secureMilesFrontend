@@ -1,0 +1,53 @@
+.table {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  transition: background 0.5s ease-in-out;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}
+
+.table thead th {
+  background-color: #50067a;
+  color: white;
+}
+
+.table thead th i {
+  margin-right: 5px;
+}
+
+.btn {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #3e045a;
+}
+.modal-header {
+  background-color: #50067a;
+  color: white;
+}
+
+.modal-body i {
+  margin-right: 5px;
+}
+
+.modal-footer .btn {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.modal-footer .btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal-footer .btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.modal-footer .btn:hover {
+  opacity: 0.8;
+}

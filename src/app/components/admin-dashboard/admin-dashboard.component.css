@@ -1,0 +1,107 @@
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  background: linear-gradient(
+    135deg,
+    rgb(32, 18, 58),
+    rgb(56, 31, 105),
+    rgb(64, 35, 118)
+  );
+  backdrop-filter: blur(10px);
+  margin-bottom: 30px;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.hero-text {
+  flex: 1;
+  padding: 20px;
+}
+
+.hero-text h1 {
+  font-size: 3em;
+  color: #fff;
+}
+
+.hero-text p {
+  font-size: 1.2em;
+  color: #ddd;
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Glassmorphic Card */
+.glass-card {
+  background: linear-gradient(135deg, #d7c3ee, #d1dff4, #ebe8f7);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.glass-card:hover {
+  transform: scale(1.05);
+}
+
+/* Card Title with Icon */
+.card-title i {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+/* General Styles */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.card-body {
+  color: #671e95;
+}
+
+.btn-primary {
+  background-color: #7811df;
+  border-color: #1178e5;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.card-image {
+  margin: 0 auto;
+
+  width: 30%;
+}
+
+.card-text {
+  text-align: center;
+  color: #800202;
+}

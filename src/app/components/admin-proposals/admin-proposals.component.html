@@ -1,0 +1,226 @@
+<div class="container">
+  <h1
+    class="fw-bold"
+    style="
+      font-size: 2.5rem;
+      color: #50067a;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    "
+  >
+    Proposals Submitted by <span>SecureMiles</span> Users
+  </h1>
+  <!-- Approved Proposals Table -->
+  <!-- Approved Proposals Table -->
+  <div *ngIf="approvedProposals.length > 0">
+    <h3 class="fw-bold" style="color: rgb(11, 181, 17)">
+      <i class="fas fa-check-circle mb-3 mt-4"></i> Approved Proposals
+    </h3>
+    <table class="table table-striped">
+      <thead class="bg-success text-white">
+        <tr>
+          <th scope="col"><i class="fas fa-id-badge"></i> ID</th>
+          <th scope="col"><i class="fas fa-user"></i> Name</th>
+          <th scope="col"><i class="fas fa-envelope"></i> Email</th>
+          <th scope="col"><i class="fas fa-phone"></i> Phone</th>
+          <th scope="col"><i class="fas fa-info-circle"></i> Status</th>
+          <th scope="col"><i class="fas fa-calendar-alt"></i> Date</th>
+          <th scope="col"><i class="fas fa-cogs"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proposal of approvedProposals">
+          <td>{{ proposal.proposalId }}</td>
+          <td>{{ proposal.userName }}</td>
+          <td>{{ proposal.userEmail }}</td>
+          <td>{{ proposal.userPhone }}</td>
+          <td class="fw-bold" style="color: rgb(11, 181, 17)">
+            {{ proposal.status }}
+          </td>
+          <td>{{ proposal.createdAt | date : "short" }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              (click)="viewDetails(proposal.proposalId)"
+            >
+              Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="approvedProposals.length === 0">
+    <p>No approved proposals found.</p>
+  </div>
+
+  <!-- Pending Proposals Table -->
+  <div *ngIf="pendingProposals.length > 0">
+    <h3 class="fw-bold" style="color: rgb(230, 203, 4)">
+      <i class="fas fa-hourglass-half mb-3 mt-4"></i> Pending Proposals
+    </h3>
+    <table class="table table-striped">
+      <thead class="bg-warning text-white">
+        <tr>
+          <th scope="col"><i class="fas fa-id-badge"></i> ID</th>
+          <th scope="col"><i class="fas fa-user"></i> Name</th>
+          <th scope="col"><i class="fas fa-envelope"></i> Email</th>
+          <th scope="col"><i class="fas fa-phone"></i> Phone</th>
+          <th scope="col"><i class="fas fa-info-circle"></i> Status</th>
+          <th scope="col"><i class="fas fa-calendar-alt"></i> Date</th>
+          <th scope="col"><i class="fas fa-cogs"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proposal of pendingProposals">
+          <td>{{ proposal.proposalId }}</td>
+          <td>{{ proposal.userName }}</td>
+          <td>{{ proposal.userEmail }}</td>
+          <td>{{ proposal.userPhone }}</td>
+          <td class="fw-bold" style="color: rgb(230, 203, 4)">
+            {{ proposal.status }}
+          </td>
+          <td>{{ proposal.createdAt | date : "short" }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              (click)="viewDetails(proposal.proposalId)"
+            >
+              Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="pendingProposals.length === 0">
+    <p>No pending proposals found.</p>
+  </div>
+
+  <!-- Canceled Proposals Table -->
+  <div *ngIf="canceledProposals.length > 0">
+    <h3 class="fw-bold" style="color: rgb(232, 47, 47)">
+      <i class="fas fa-times-circle mb-3 mt-4"></i> Canceled Proposals
+    </h3>
+    <table class="table table-striped">
+      <thead class="bg-danger text-white">
+        <tr>
+          <th scope="col"><i class="fas fa-id-badge"></i> ID</th>
+          <th scope="col"><i class="fas fa-user"></i> Name</th>
+          <th scope="col"><i class="fas fa-envelope"></i> Email</th>
+          <th scope="col"><i class="fas fa-phone"></i> Phone</th>
+          <th scope="col"><i class="fas fa-info-circle"></i> Status</th>
+          <th scope="col"><i class="fas fa-calendar-alt"></i> Date</th>
+          <th scope="col"><i class="fas fa-cogs"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proposal of canceledProposals">
+          <td>{{ proposal.proposalId }}</td>
+          <td>{{ proposal.userName }}</td>
+          <td>{{ proposal.userEmail }}</td>
+          <td>{{ proposal.userPhone }}</td>
+          <td class="fw-bold" style="color: rgb(232, 47, 47)">
+            {{ proposal.status }}
+          </td>
+          <td>{{ proposal.createdAt | date : "short" }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              (click)="viewDetails(proposal.proposalId)"
+            >
+              Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="canceledProposals.length === 0">
+    <p>No canceled proposals found.</p>
+  </div>
+
+  <!-- Proposal Details Modal -->
+  <div
+    class="modal fade"
+    id="proposalDetailsModal"
+    tabindex="-1"
+    aria-labelledby="proposalDetailsModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div
+          class="modal-header bg-primary text-white"
+          style="background-color: #50067a"
+        >
+          <h5 class="modal-title" id="proposalDetailsModalLabel">
+            <i class="fas fa-info-circle"></i> Proposal Details
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedProposal">
+          <div class="mb-3">
+            <p>
+              <i class="fas fa-id-badge"></i> <strong>Proposal ID:</strong>
+              {{ selectedProposal.proposalId }}
+            </p>
+            <p>
+              <i class="fas fa-user"></i> <strong>User Name:</strong>
+              {{ selectedProposal.userName }}
+            </p>
+            <p>
+              <i class="fas fa-envelope"></i> <strong>Email:</strong>
+              {{ selectedProposal.userEmail }}
+            </p>
+            <p>
+              <i class="fas fa-phone"></i> <strong>Phone:</strong>
+              {{ selectedProposal.userPhone }}
+            </p>
+            <p>
+              <i class="fas fa-info-circle"></i> <strong>Status:</strong>
+              {{ selectedProposal.status }}
+            </p>
+            <p>
+              <i class="fas fa-shield-alt"></i>
+              <strong>Requested Coverage:</strong>
+              {{ selectedProposal.requestedCoverage }}
+            </p>
+            <p>
+              <i class="fas fa-car"></i> <strong>Vehicle:</strong>
+              {{ selectedProposal.vehicle.make }}
+              {{ selectedProposal.vehicle.model }} ({{
+                selectedProposal.vehicle.year
+              }})
+            </p>
+            <p><i class="fas fa-file-alt"></i> <strong>Documents:</strong></p>
+            <ul>
+              <li *ngFor="let doc of selectedProposal.documents">
+                <a [href]="doc.documentUrl" target="_blank">
+                  <i class="fas fa-file"></i> {{ doc.documentType }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-success"
+            *ngIf="selectedProposal && selectedProposal.status !== 'Canceled'"
+            (click)="approveProposal()"
+          >
+            <i class="fas fa-check"></i> Approve
+          </button>
+          <button class="btn btn-danger" (click)="rejectProposal()">
+            <i class="fas fa-times"></i> Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

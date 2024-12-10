@@ -1,0 +1,125 @@
+<div class="container mt-4 mb-4">
+  <!-- <h2>Registered Users   </h2> -->
+  <!-- regitred user with total count -->
+  <h2>Total Registered Users in SecureMile ({{ users.length }})</h2>
+  <div class="row">
+    <div *ngFor="let user of users" class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm detail">
+        <div class="card-body">
+          <h5 class="card-title text-center">
+            <i class="fas fa-user"></i> {{ user.fullName }}
+          </h5>
+          <div class="text-left">
+            <p class="card-text">
+              <i class="fas fa-envelope"></i> <strong>Email:</strong>
+              {{ user.email }}
+            </p>
+            <p class="card-text">
+              <i class="fas fa-user-tag"></i> <strong>Role:</strong>
+              {{ user.role }}
+            </p>
+            <p class="card-text">
+              <i class="fas fa-user-check"></i> <strong>Status:</strong>
+              {{ user.isActive ? "Active" : "Inactive" }}
+            </p>
+          </div>
+          <div class="buttonCls">
+            <button
+              class="btn btn-sm mt-4"
+              style="color: rgb(84, 11, 152)"
+              (click)="viewDetails(user.userId)"
+            >
+              <i class="fas fa-info-circle"></i> View Details
+            </button>
+            <button
+              class="btn btn-danger btn-sm ms-2 mt-4"
+              (click)="deleteUser(user.userId)"
+            >
+              <i class="fas fa-trash-alt"></i> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for User Details -->
+  <div
+    class="modal fade"
+    id="userDetailsModal"
+    tabindex="-1"
+    aria-labelledby="userDetailsLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div
+          class="modal-header text-white"
+          style="background-color: rgb(59, 9, 105)"
+        >
+          <h5 class="modal-title" id="userDetailsLabel">
+            <i class="fas fa-user"></i> User Details
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedUser">
+          <div class="mb-3">
+            <h5><i class="fas fa-info-circle"></i> Personal Information</h5>
+            <p><strong>Name:</strong> {{ selectedUser.name }}</p>
+            <p>
+              <i class="fas fa-envelope"></i> <strong>Email:</strong>
+              {{ selectedUser.email }}
+            </p>
+            <p>
+              <i class="fas fa-phone"></i> <strong>Phone:</strong>
+              {{ selectedUser.phone }}
+            </p>
+
+            <p>
+              <i class="fas fa-map-marker-alt"></i> <strong>Address:</strong>
+              {{ selectedUser.address }}
+            </p>
+            <p>
+              <i class="fas fa-city"></i> <strong>City:</strong>
+              {{ selectedUser.city }}
+            </p>
+            <p>
+              <i class="fas fa-flag"></i> <strong>State:</strong>
+              {{ selectedUser.state }}
+            </p>
+            <p>
+              <i class="fas fa-mail-bulk"></i> <strong>Zip Code:</strong>
+              {{ selectedUser.zipCode }}
+            </p>
+            <p>
+              <i class="fas fa-calendar-alt"></i> <strong>Created At:</strong>
+              {{ selectedUser.createdAt }}
+            </p>
+          </div>
+          <div class="mb-3">
+            <h5><i class="fas fa-car"></i> Vehicles</h5>
+            <ul>
+              <li *ngFor="let vehicle of selectedUser.vehicles">
+                {{ vehicle.make }} {{ vehicle.model }} ({{ vehicle.year }}) -
+                {{ vehicle.registrationNumber }}
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5><i class="fas fa-file-alt"></i> Claims</h5>
+            <ul>
+              <li *ngFor="let claim of selectedUser.claims">
+                {{ claim.description }} - {{ claim.status }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

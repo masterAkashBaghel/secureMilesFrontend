@@ -1,0 +1,131 @@
+<div class="policy-list">
+  <h2>Policies</h2>
+  <div class="row">
+    <div *ngFor="let policy of policies" class="col-md-6">
+      <div class="policy-card">
+        <div class="policy-header">
+          <strong>Policy ID:</strong> #{{ policy.policyId }} |
+          <strong>Status:</strong> {{ policy.status }}
+        </div>
+        <div class="policy-content">
+          <p><strong>Type:</strong> {{ policy.policyType }}</p>
+          <p><strong>Coverage:</strong> ₹{{ policy.coverageAmount }}</p>
+          <p><strong>Premium:</strong> ₹{{ policy.premiumAmount }}</p>
+          <p>
+            <strong>Vehicle:</strong> {{ policy.vehicle.make }}
+            {{ policy.vehicle.model }} ({{ policy.vehicle.registrationNumber }})
+          </p>
+          <p>
+            <strong>Start Date:</strong> {{ policy.policyStartDate | date }}
+          </p>
+          <p><strong>End Date:</strong> {{ policy.policyEndDate | date }}</p>
+        </div>
+        <div class="policy-actions">
+          <button
+            (click)="viewPolicyDetails(policy.policyId)"
+            class="btn btn-primary"
+          >
+            <i class="fas fa-info-circle"></i> View Details
+          </button>
+          <button
+            *ngIf="policy.status === 'Active'"
+            (click)="downloadPolicy(policy.policyId)"
+            class="btn btn-success"
+          >
+            <i class="fas fa-download"></i> Download Policy
+          </button>
+          <button
+            *ngIf="policy.status === 'Active'"
+            (click)="renewPolicy(policy.policyId)"
+            class="btn btn-warning"
+          >
+            <i class="fas fa-redo"></i> Renew Policy
+          </button>
+          <button
+            *ngIf="policy.status === 'Active'"
+            (click)="fileClaim(policy.policyId)"
+            class="btn btn-danger"
+          >
+            <i class="fas fa-file-alt"></i> File Claim
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Policy Details -->
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngClass]="{ show: selectedPolicy, 'd-block': selectedPolicy }"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Policy Details</h5>
+        <button
+          type="button"
+          class="close"
+          (click)="closeModal()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>ID:</strong> {{ selectedPolicy?.policyId }}</p>
+        <p><strong>Type:</strong> {{ selectedPolicy?.policyType }}</p>
+        <p><strong>Status:</strong> {{ selectedPolicy?.status }}</p>
+        <p><strong>Coverage:</strong> ₹{{ selectedPolicy?.coverageAmount }}</p>
+        <p><strong>Premium:</strong> ₹{{ selectedPolicy?.premiumAmount }}</p>
+        <p>
+          <strong>Start Date:</strong>
+          {{ selectedPolicy?.policyStartDate | date }}
+        </p>
+        <p>
+          <strong>End Date:</strong> {{ selectedPolicy?.policyEndDate | date }}
+        </p>
+        <p>
+          <strong>Vehicle Make:</strong> {{ selectedPolicy?.vehicle?.make }}
+        </p>
+        <p>
+          <strong>Vehicle Model:</strong> {{ selectedPolicy?.vehicle?.model }}
+        </p>
+        <p>
+          <strong>Registration Number:</strong>
+          {{ selectedPolicy?.vehicle?.registrationNumber }}
+        </p>
+        <p>
+          <strong>Vehicle Type:</strong>
+          {{ selectedPolicy?.vehicle?.vehicleType }}
+        </p>
+        <p><strong>User Name:</strong> {{ selectedPolicy?.user?.name }}</p>
+        <p><strong>User Email:</strong> {{ selectedPolicy?.user?.email }}</p>
+        <p><strong>User Phone:</strong> {{ selectedPolicy?.user?.phone }}</p>
+        <p>
+          <strong>Payment ID:</strong> {{ selectedPolicy?.payment?.paymentId }}
+        </p>
+        <p>
+          <strong>Payment Amount:</strong> ₹{{
+            selectedPolicy?.payment?.amount
+          }}
+        </p>
+        <p>
+          <strong>Payment Date:</strong>
+          {{ selectedPolicy?.payment?.paymentDate | date }}
+        </p>
+        <p>
+          <strong>Transaction ID:</strong>
+          {{ selectedPolicy?.payment?.transactionId }}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

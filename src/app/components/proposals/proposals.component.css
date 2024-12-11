@@ -14,7 +14,7 @@ body {
 }
 
 .glassmorphic-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -36,25 +36,25 @@ body {
     border-color: transparent;
   }
   25% {
-    border-top-color: #2F1A56;
+    border-top-color: #2f1a56;
     border-right-color: transparent;
     border-bottom-color: transparent;
     border-left-color: transparent;
   }
   50% {
-    border-top-color: #2F1A56;
-    border-right-color: #2F1A56;
+    border-top-color: #2f1a56;
+    border-right-color: #2f1a56;
     border-bottom-color: transparent;
     border-left-color: transparent;
   }
   75% {
-    border-top-color: #2F1A56;
-    border-right-color: #2F1A56;
-    border-bottom-color: #2F1A56;
+    border-top-color: #2f1a56;
+    border-right-color: #2f1a56;
+    border-bottom-color: #2f1a56;
     border-left-color: transparent;
   }
   100% {
-    border-color: #2F1A56;
+    border-color: #2f1a56;
   }
 }
 
@@ -73,4 +73,24 @@ body {
 
 .btn:last-child {
   margin-right: 0;
+}
+
+.card-pending {
+  border-left: 5px solid orange;
+}
+
+.card-approved {
+  border-left: 5px solid green;
+}
+
+.card-rejected {
+  border-left: 5px solid red;
+}
+
+.card-converted {
+  border-left: 5px solid rgb(81, 17, 165);
+}
+
+.card-default {
+  border-left: 5px solid gray;
 }

@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   users: any[] = [];
+  activeUsers: any[] = [];
+  inactiveUsers: any[] = [];
   selectedUser: any = null;
 
   constructor(private adminService: AdminService) {}
@@ -20,32 +22,26 @@ export class UsersComponent implements OnInit {
     this.fetchUsers(1, 20);
   }
 
-  /**
-   * Fetches users using the AdminService and updates the UI.
-   * @param pageNumber The page number to fetch.
-   * @param pageSize The number of users to fetch per page.
-   */
   fetchUsers(pageNumber: number, pageSize: number): void {
     this.adminService.fetchUsers(pageNumber, pageSize).subscribe((response) => {
       this.users = response.users;
+      this.filterUsersByStatus();
     });
   }
 
-  /**
-   * Deletes a user using the AdminService and updates the UI.
-   * @param userId The ID of the user to delete.
-   */
+  filterUsersByStatus(): void {
+    this.activeUsers = this.users.filter((user) => user.isActive);
+    this.inactiveUsers = this.users.filter((user) => !user.isActive);
+  }
+
   deleteUser(userId: number): void {
     this.adminService.deleteUser(userId).subscribe(() => {
       this.users = this.users.filter((user) => user.userId !== userId);
+      this.filterUsersByStatus();
       alert('User deleted successfully!');
     });
   }
 
-  /**
-   * Fetches the details of a specific user using the AdminService and displays a modal.
-   * @param userId The ID of the user to fetch details for.
-   */
   viewDetails(userId: number): void {
     this.adminService.getUserDetails(userId).subscribe((response) => {
       this.selectedUser = response;

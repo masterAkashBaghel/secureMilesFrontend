@@ -1,6 +1,5 @@
 <div class="container mt-4">
   <div>
-    <!-- add icons and text -->
     <h3 class="fw-bold" style="color: #2f1a56">
       <i class="fas fa-car"></i> Active Proposals for your Vehicles
     </h3>
@@ -10,7 +9,10 @@
   </div>
   <div class="row">
     <div class="col-md-6 mb-4" *ngFor="let proposal of proposals">
-      <div class="card glassmorphic-card shadow-sm h-100">
+      <div
+        class="card glassmorphic-card shadow-sm h-100"
+        [ngClass]="getCardClass(proposal.status)"
+      >
         <div class="card-body d-flex align-items-center">
           <div>
             <h5 class="card-title fw-bold" style="color: rgb(105, 9, 169)">
@@ -45,7 +47,10 @@
             </p>
             <div class="d-flex justify-content-between">
               <button
-                *ngIf="proposal.status !== 'Approved'"
+                *ngIf="
+                  proposal.status === 'Rejected' ||
+                  proposal.status === 'Pending'
+                "
                 class="btn btn-danger btn-sm me-2"
                 (click)="deleteProposal(proposal.proposalId)"
               >
@@ -59,6 +64,7 @@
                 <i class="fas fa-credit-card"></i> Make Payment
               </button>
               <button
+                *ngIf="proposal.status === 'Pending'"
                 class="btn btn-primary btn-sm"
                 (click)="updateDocument(proposal.proposalId)"
               >
@@ -66,9 +72,8 @@
               </button>
             </div>
           </div>
-
           <img
-            [src]="getRandomImageUrl()"
+            [src]="getImageUrl(proposal.status)"
             alt="Vehicle Image"
             class="img-fluid me-3"
             style="width: 300px; border-radius: 10px"

@@ -19,6 +19,7 @@ import { UsersComponent } from './components/users/users.component';
 import { AdminClaimsComponent } from './components/admin-claims/admin-claims.component';
 import { AdminPoliciesComponent } from './components/admin-policies/admin-policies.component';
 import { AdminProposalsComponent } from './components/admin-proposals/admin-proposals.component';
+import { PolicyComponent } from './components/policy/policy.component';
 export const routes: Routes = [
   { path: '', component: DashboardComponent }, // Default route
   { path: 'login', component: LoginComponent },
@@ -63,6 +64,11 @@ export const routes: Routes = [
   {
     path: 'admin/proposals',
     component: AdminProposalsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'policy',
+    component: PolicyComponent,
     canActivate: [AuthGuard],
   },
 ];

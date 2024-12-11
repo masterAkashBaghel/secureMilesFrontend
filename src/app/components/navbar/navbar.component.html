@@ -25,7 +25,7 @@
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
         <li *ngIf="isLoggedIn() && getRole() !== 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/policies">Policies</a>
+          <a class="nav-link" routerLink="/policy">Policies</a>
         </li>
 
         <li *ngIf="isLoggedIn() && getRole() !== 'Admin'" class="nav-item">

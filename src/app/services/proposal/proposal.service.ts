@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProposalService {
   private baseUrl = 'http://localhost:5294/api/Proposals';
+  private paymentUrl = 'http://localhost:5294/api/payments';
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
+    console.log('Token:', token); // Debugging statement
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -32,9 +33,20 @@ export class ProposalService {
   }
 
   deleteProposal(proposalId: number): Observable<any> {
-    console.log(proposalId);
     return this.http.delete(`${this.baseUrl}/${proposalId}`, {
       headers: this.getAuthHeaders(),
     });
+  }
+
+  submitPayment(proposalId: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    console.log('Token:', token); // Debugging statement
+    return this.http.post(
+      `${this.paymentUrl}/${proposalId}`,
+      {},
+      {
+        headers: this.getAuthHeaders(),
+      }
+    );
   }
 }

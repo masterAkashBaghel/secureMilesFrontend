@@ -2,7 +2,7 @@
   <!-- <h2>Registered Users   </h2> -->
   <!-- regitred user with total count -->
   <h2>Total Registered Users in SecureMile ({{ users.length }})</h2>
-  <div class="row">
+  <!-- <div class="row">
     <div *ngFor="let user of users" class="col-md-4 mb-4">
       <div class="card h-100 shadow-sm detail">
         <div class="card-body">
@@ -41,8 +41,91 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="row mt-4 mb-3">
+    <div class="col-md-12">
+      <h3 style="color: green; font-weight: bold">
+        <i class="fas fa-user-check"></i> Active Users
+      </h3>
+      <table class="table table-striped mt-4">
+        <thead style="background-color: #2f1a56; color: white">
+          <tr>
+            <th scope="col"><i class="fas fa-user"></i> Full Name</th>
+            <th scope="col"><i class="fas fa-envelope"></i> Email</th>
+            <th scope="col"><i class="fas fa-user-tag"></i> Role</th>
+            <th scope="col"><i class="fas fa-user-check"></i> Status</th>
+            <th scope="col"><i class="fas fa-cogs"></i> Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of activeUsers">
+            <td>{{ user.fullName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ user.isActive ? "Active" : "Inactive" }}</td>
+            <td>
+              <button
+                class="btn btn-sm"
+                style="color: rgb(84, 11, 152)"
+                (click)="viewDetails(user.userId)"
+              >
+                <i class="fas fa-info-circle"></i> View Details
+              </button>
+              <button
+                class="btn btn-danger btn-sm ms-2"
+                (click)="deleteUser(user.userId)"
+              >
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
+  <div class="row mt-4 mb-3">
+    <div class="col-md-12">
+      <h3 style="color: rgb(179, 32, 32); font-weight: bold">
+        <i class="fas fa-user-times"></i> Inactive Users
+      </h3>
+      <table class="table table-striped mt-4">
+        <thead style="background-color: #2f1a56; color: white">
+          <tr>
+            <th scope="col"><i class="fas fa-user"></i> Full Name</th>
+            <th scope="col"><i class="fas fa-envelope"></i> Email</th>
+            <th scope="col"><i class="fas fa-user-tag"></i> Role</th>
+            <th scope="col"><i class="fas fa-user-check"></i> Status</th>
+            <th scope="col"><i class="fas fa-cogs"></i> Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of inactiveUsers">
+            <td>{{ user.fullName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>{{ user.isActive ? "Active" : "Inactive" }}</td>
+            <td>
+              <button
+                class="btn btn-sm"
+                style="color: rgb(84, 11, 152)"
+                (click)="viewDetails(user.userId)"
+              >
+                <i class="fas fa-info-circle"></i> View Details
+              </button>
+              <button
+                class="btn btn-danger btn-sm ms-2"
+                (click)="deleteUser(user.userId)"
+              >
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <!-- Modal for User Details -->
   <div
     class="modal fade"

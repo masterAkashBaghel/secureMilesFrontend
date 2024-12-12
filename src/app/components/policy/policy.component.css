@@ -1,11 +1,16 @@
 .policy-card {
-  border: 1px solid #ddd;
+  border: 1px solid #6a08a3;
   padding: 15px;
   margin-bottom: 15px;
-  border-radius: 5px;
+  border-radius: 8px;
   transition: transform 0.3s;
+  background: linear-gradient(135deg, #f1e8f5, #fcfbfc, #ececed);
   width: 90%;
-  align-items: center;
+}
+.policy-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .policy-card:hover {
@@ -35,4 +40,38 @@
   flex: 0 0 50%;
   max-width: 50%;
   padding: 10px;
+}
+
+.policy-header {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.policy-content p {
+  margin: 5px 0;
+  font-size: 1.1em;
+}
+
+.policy-actions button {
+  margin: 5px;
+}
+
+.active-status {
+  color: green;
+}
+
+.inactive-status {
+  color: red;
+}
+
+.icon {
+  margin-right: 8px; /* Adjust the value as needed */
+}
+
+.label {
+  margin-right: 4px; /* Adjust the value as needed */
+}
+
+.value {
+  margin-left: 4px; /* Adjust the value as needed */
 }

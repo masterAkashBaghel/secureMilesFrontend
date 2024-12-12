@@ -1,0 +1,18 @@
+.modal-header {
+  background-color: rgb(59, 7, 150);
+}
+.card {
+  border-radius: 12px;
+  background: linear-gradient(145deg, #e7f4e6, #e6e6e6);
+  box-shadow: 4px 4px 10px #bfbfbf, -4px -4px 10px #ffffff;
+}
+.modal-content {
+  border-radius: 12px;
+}
+.modal-header.bg-gradient-primary {
+  background: linear-gradient(90deg, #efce14, #ee9a0a);
+}
+.table thead th {
+  background-color: #50067a;
+  color: white;
+}

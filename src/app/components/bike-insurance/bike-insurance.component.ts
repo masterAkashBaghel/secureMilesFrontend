@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { VehicleCarouselComponent } from '../vehicle-carousel/vehicle-carousel.component';
 
 @Component({
   selector: 'app-bike-insurance',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, VehicleCarouselComponent],
 
   templateUrl: './bike-insurance.component.html',
   styleUrls: ['./bike-insurance.component.css'],

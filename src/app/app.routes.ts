@@ -20,6 +20,7 @@ import { AdminClaimsComponent } from './components/admin-claims/admin-claims.com
 import { AdminPoliciesComponent } from './components/admin-policies/admin-policies.component';
 import { AdminProposalsComponent } from './components/admin-proposals/admin-proposals.component';
 import { PolicyComponent } from './components/policy/policy.component';
+import { ClaimComponent } from './components/claim/claim.component';
 export const routes: Routes = [
   { path: '', component: DashboardComponent }, // Default route
   { path: 'login', component: LoginComponent },
@@ -69,6 +70,11 @@ export const routes: Routes = [
   {
     path: 'policy',
     component: PolicyComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'claim',
+    component: ClaimComponent,
     canActivate: [AuthGuard],
   },
 ];

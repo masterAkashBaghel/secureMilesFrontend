@@ -1,0 +1,201 @@
+<div class="container mt-5">
+  <h2 class="mb-4" style="color: #2f1a56">
+    <i class="fas fa-tasks"></i> Manage Your Claims
+  </h2>
+  <p class="text-muted">
+    Here you can view, manage, and update your insurance claims. Click on "View
+    Details" to see more information about each claim.
+  </p>
+  <div class="table-responsive">
+    <table class="table table-hover shadow-sm rounded border">
+      <thead class="text-white" style="background-color: #2f1a56">
+        <tr>
+          <th><i class="fas fa-id-badge"></i> Claim ID</th>
+          <th><i class="fas fa-file-alt"></i> Policy ID</th>
+          <th><i class="fas fa-calendar-alt"></i> Incident Date</th>
+          <th><i class="fas fa-align-left"></i> Description</th>
+          <th><i class="fas fa-info-circle"></i> Status</th>
+          <th><i class="fas fa-cogs"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let claim of claims" class="table-row">
+          <td>{{ claim.claimId }}</td>
+          <td>{{ claim.policyId }}</td>
+          <td>{{ claim.incidentDate | date }}</td>
+          <td>{{ claim.description }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-warning': claim.status === 'Pending',
+                'bg-success': claim.status === 'Approved',
+                'bg-danger': claim.status === 'Rejected'
+              }"
+            >
+              {{ claim.status }}
+            </span>
+          </td>
+          <td>
+            <button
+              class="btn btn-sm btn-outline-primary me-2 animate-button"
+              (click)="viewClaimDetails(claim.claimId)"
+            >
+              <i class="fas fa-eye"></i> View
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger animate-button"
+              *ngIf="claim.status === 'Pending'"
+              (click)="deleteClaim(claim.claimId)"
+            >
+              <i class="fas fa-trash-alt"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal for Claim Details -->
+  <!-- Modal for Claim Details -->
+  <div
+    class="modal fade"
+    [class.show]="showModal === 'claimDetails'"
+    [style.display]="showModal === 'claimDetails' ? 'block' : 'none'"
+    tabindex="-1"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div
+          class="modal-header"
+          style="background-color: #6c757d; color: white"
+        >
+          <h5 class="modal-title">
+            <i class="fas fa-info-circle"></i> Claim Details
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedClaim">
+          <div class="row">
+            <div class="col-md-6 d-flex align-items-stretch">
+              <div class="card shadow-sm mb-4 border-0 p-3 w-100">
+                <div class="card-body">
+                  <h6 style="color: #007bff">
+                    <i class="fas fa-file-alt"></i> Policy Information
+                  </h6>
+                  <p>
+                    <strong>Policy ID:</strong>
+                    {{ selectedClaim.policy.policyId }}<br />
+                    <strong>Type:</strong> {{ selectedClaim.policy.policyType
+                    }}<br />
+                    <strong>Premium Amount:</strong> ₹{{
+                      selectedClaim.policy.premiumAmount
+                    }}<br />
+                    <strong>Coverage Amount:</strong> ₹{{
+                      selectedClaim.policy.coverageAmount
+                    }}<br />
+                    <strong>Policy Start Date:</strong>
+                    {{ selectedClaim.policy.policyStartDate | date }}<br />
+                    <strong>Policy End Date:</strong>
+                    {{ selectedClaim.policy.policyEndDate | date }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-stretch">
+              <div class="card shadow-sm mb-4 border-0 p-3 w-100">
+                <div class="card-body">
+                  <h6 style="color: #28a745">
+                    <i class="fas fa-clipboard-list"></i> Claim Details
+                  </h6>
+                  <p>
+                    <strong>Claim ID:</strong> {{ selectedClaim.claimId }}<br />
+                    <strong>Policy ID:</strong> {{ selectedClaim.policyId
+                    }}<br />
+                    <strong>Incident Date:</strong>
+                    {{ selectedClaim.incidentDate | date }}<br />
+                    <strong>Description:</strong> {{ selectedClaim.description
+                    }}<br />
+                    <strong>Status:</strong> {{ selectedClaim.status }}<br />
+                    <strong>Claim Amount:</strong> ₹{{
+                      selectedClaim.claimAmount
+                    }}<br />
+                    <strong>Approval Date:</strong>
+                    {{ selectedClaim.approvalDate | date }}<br />
+                    <strong>Created At:</strong>
+                    {{ selectedClaim.createdAt | date }}<br />
+                    <strong>Updated At:</strong>
+                    {{ selectedClaim.updatedAt | date }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 d-flex align-items-stretch">
+              <div class="card shadow-sm mb-4 border-0 p-3 w-100">
+                <div class="card-body">
+                  <h6 style="color: #ffc107">
+                    <i class="fas fa-car"></i> Vehicle Information
+                  </h6>
+                  <p>
+                    <strong>Vehicle ID:</strong>
+                    {{ selectedClaim.vehicle.vehicleId }}<br />
+                    <strong>Registration Number:</strong>
+                    {{ selectedClaim.vehicle.registrationNumber }}<br />
+                    <strong>Model:</strong> {{ selectedClaim.vehicle.model
+                    }}<br />
+                    <strong>Year:</strong> {{ selectedClaim.vehicle.year
+                    }}<br />
+                    <strong>Fuel Type:</strong>
+                    {{ selectedClaim.vehicle.fuelType }}<br />
+                    <strong>Chassis Number:</strong>
+                    {{ selectedClaim.vehicle.chassisNumber }}<br />
+                    <strong>Engine Number:</strong>
+                    {{ selectedClaim.vehicle.engineNumber }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-stretch">
+              <div class="card shadow-sm mb-4 border-0 p-3 w-100">
+                <div class="card-body">
+                  <h6 style="color: #17a2b8">
+                    <i class="fas fa-file-upload"></i> Documents
+                  </h6>
+                  <ul class="list-unstyled">
+                    <li
+                      *ngFor="let doc of selectedClaim.documents"
+                      class="mb-2"
+                    >
+                      <a
+                        [href]="doc.filePath"
+                        target="_blank"
+                        class="text-decoration-none"
+                      >
+                        <i class="fas fa-file-alt me-2"></i>
+                        {{ doc.documentId }}
+                      </a>
+                      <small class="text-muted">({{ doc.fileSize }} KB)</small>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeModal()">
+            <i class="fas fa-times"></i> Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { VehicleCarouselComponent } from '../vehicle-carousel/vehicle-carousel.component';
 
 @Component({
   selector: 'app-car-insurance',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, VehicleCarouselComponent],
   templateUrl: './car-insurance.component.html',
   styleUrls: ['./car-insurance.component.css'],
 })

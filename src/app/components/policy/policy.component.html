@@ -1,24 +1,58 @@
-<div class="policy-list">
-  <h2>Policies</h2>
-  <div class="row">
+<div class="container">
+  <h1 class="mb-4 mt-4"><i class="fas fa-file-alt"></i> My Policies</h1>
+  <p>
+    <i class="fas fa-info-circle"></i> For more information about your policies,
+    please contact our support team or visit our <a href="/help">help page</a>.
+  </p>
+  <div class="row policy-list">
     <div *ngFor="let policy of policies" class="col-md-6">
-      <div class="policy-card">
+      <div class="policy-card glassmorphic">
         <div class="policy-header">
           <strong>Policy ID:</strong> #{{ policy.policyId }} |
-          <strong>Status:</strong> {{ policy.status }}
+          <strong>Status:</strong>
+          <span
+            [ngClass]="{
+              'active-status': policy.status === 'Active',
+              'inactive-status': policy.status !== 'Active'
+            }"
+            >{{ policy.status }}</span
+          >
         </div>
         <div class="policy-content">
-          <p><strong>Type:</strong> {{ policy.policyType }}</p>
-          <p><strong>Coverage:</strong> ₹{{ policy.coverageAmount }}</p>
-          <p><strong>Premium:</strong> ₹{{ policy.premiumAmount }}</p>
           <p>
-            <strong>Vehicle:</strong> {{ policy.vehicle.make }}
-            {{ policy.vehicle.model }} ({{ policy.vehicle.registrationNumber }})
+            <i class="fas fa-file-alt icon"></i>
+            <strong class="label">Type:</strong>
+            <span class="value">{{ policy.policyType }}</span>
           </p>
           <p>
-            <strong>Start Date:</strong> {{ policy.policyStartDate | date }}
+            <i class="fas fa-shield-alt icon"></i>
+            <strong class="label">Coverage:</strong>
+            <span class="value">₹{{ policy.coverageAmount }}</span>
           </p>
-          <p><strong>End Date:</strong> {{ policy.policyEndDate | date }}</p>
+          <p>
+            <i class="fas fa-money-bill-wave icon"></i>
+            <strong class="label">Premium:</strong>
+            <span class="value">₹{{ policy.premiumAmount }}</span>
+          </p>
+          <p>
+            <i class="fas fa-car icon"></i>
+            <strong class="label">Vehicle:</strong>
+            <span class="value"
+              >{{ policy.vehicle.make }} {{ policy.vehicle.model }} ({{
+                policy.vehicle.registrationNumber
+              }})</span
+            >
+          </p>
+          <p>
+            <i class="fas fa-calendar-alt icon"></i>
+            <strong class="label">Start Date:</strong>
+            <span class="value">{{ policy.policyStartDate | date }}</span>
+          </p>
+          <p>
+            <i class="fas fa-calendar-alt icon"></i>
+            <strong class="label">End Date:</strong>
+            <span class="value">{{ policy.policyEndDate | date }}</span>
+          </p>
         </div>
         <div class="policy-actions">
           <button
@@ -35,7 +69,9 @@
             <i class="fas fa-download"></i> Download Policy
           </button>
           <button
-            *ngIf="policy.status === 'Active'"
+            *ngIf="
+              policy.status === 'Active' && isRenewalNear(policy.policyEndDate)
+            "
             (click)="renewPolicy(policy.policyId)"
             class="btn btn-warning"
           >
@@ -54,72 +90,205 @@
   </div>
 </div>
 
-<!-- Modal for Policy Details -->
+<!-- Policy Details Modal -->
 <div
-  class="modal"
+  *ngIf="showModal === 'policyDetails'"
+  class="modal fade show d-block"
+  id="policyDetailsModal"
   tabindex="-1"
   role="dialog"
-  [ngClass]="{ show: selectedPolicy, 'd-block': selectedPolicy }"
 >
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Policy Details</h5>
-        <button
-          type="button"
-          class="close"
-          (click)="closeModal()"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="fas fa-file-alt"></i> Policy Details (ID: #{{
+            selectedPolicy?.policyId
+          }})
+        </h5>
       </div>
       <div class="modal-body">
-        <p><strong>ID:</strong> {{ selectedPolicy?.policyId }}</p>
-        <p><strong>Type:</strong> {{ selectedPolicy?.policyType }}</p>
-        <p><strong>Status:</strong> {{ selectedPolicy?.status }}</p>
-        <p><strong>Coverage:</strong> ₹{{ selectedPolicy?.coverageAmount }}</p>
-        <p><strong>Premium:</strong> ₹{{ selectedPolicy?.premiumAmount }}</p>
-        <p>
-          <strong>Start Date:</strong>
-          {{ selectedPolicy?.policyStartDate | date }}
-        </p>
-        <p>
-          <strong>End Date:</strong> {{ selectedPolicy?.policyEndDate | date }}
-        </p>
-        <p>
-          <strong>Vehicle Make:</strong> {{ selectedPolicy?.vehicle?.make }}
-        </p>
-        <p>
-          <strong>Vehicle Model:</strong> {{ selectedPolicy?.vehicle?.model }}
-        </p>
-        <p>
-          <strong>Registration Number:</strong>
-          {{ selectedPolicy?.vehicle?.registrationNumber }}
-        </p>
-        <p>
-          <strong>Vehicle Type:</strong>
-          {{ selectedPolicy?.vehicle?.vehicleType }}
-        </p>
-        <p><strong>User Name:</strong> {{ selectedPolicy?.user?.name }}</p>
-        <p><strong>User Email:</strong> {{ selectedPolicy?.user?.email }}</p>
-        <p><strong>User Phone:</strong> {{ selectedPolicy?.user?.phone }}</p>
-        <p>
-          <strong>Payment ID:</strong> {{ selectedPolicy?.payment?.paymentId }}
-        </p>
-        <p>
-          <strong>Payment Amount:</strong> ₹{{
-            selectedPolicy?.payment?.amount
-          }}
-        </p>
-        <p>
-          <strong>Payment Date:</strong>
-          {{ selectedPolicy?.payment?.paymentDate | date }}
-        </p>
-        <p>
-          <strong>Transaction ID:</strong>
-          {{ selectedPolicy?.payment?.transactionId }}
-        </p>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h6><i class="fas fa-info-circle"></i> Policy Information</h6>
+              <p><strong>ID:</strong> {{ selectedPolicy?.policyId }}</p>
+              <p><strong>Type:</strong> {{ selectedPolicy?.policyType }}</p>
+              <p><strong>Status:</strong> {{ selectedPolicy?.status }}</p>
+              <p>
+                <strong>Coverage:</strong> ₹{{ selectedPolicy?.coverageAmount }}
+              </p>
+              <p>
+                <strong>Premium:</strong> ₹{{ selectedPolicy?.premiumAmount }}
+              </p>
+              <p>
+                <strong>Start Date:</strong>
+                {{ selectedPolicy?.policyStartDate | date }}
+              </p>
+              <p>
+                <strong>End Date:</strong>
+                {{ selectedPolicy?.policyEndDate | date }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <h6><i class="fas fa-car"></i> Vehicle Information</h6>
+              <p><strong>Make:</strong> {{ selectedPolicy?.vehicle?.make }}</p>
+              <p>
+                <strong>Model:</strong> {{ selectedPolicy?.vehicle?.model }}
+              </p>
+              <p>
+                <strong>Registration Number:</strong>
+                {{ selectedPolicy?.vehicle?.registrationNumber }}
+              </p>
+              <p>
+                <strong>Type:</strong>
+                {{ selectedPolicy?.vehicle?.vehicleType }}
+              </p>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-6">
+              <h6><i class="fas fa-user"></i> User Information</h6>
+              <p><strong>Name:</strong> {{ selectedPolicy?.user?.name }}</p>
+              <p><strong>Email:</strong> {{ selectedPolicy?.user?.email }}</p>
+              <p><strong>Phone:</strong> {{ selectedPolicy?.user?.phone }}</p>
+            </div>
+            <div class="col-md-6">
+              <h6>
+                <i class="fas fa-money-check-alt"></i> Payment Information
+              </h6>
+              <p>
+                <strong>Payment ID:</strong>
+                {{ selectedPolicy?.payment?.paymentId }}
+              </p>
+              <p>
+                <strong>Amount:</strong> ₹{{ selectedPolicy?.payment?.amount }}
+              </p>
+              <p>
+                <strong>Date:</strong>
+                {{ selectedPolicy?.payment?.paymentDate | date }}
+              </p>
+              <p>
+                <strong>Transaction ID:</strong>
+                {{ selectedPolicy?.payment?.transactionId }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Claim Modal -->
+<div
+  *ngIf="showModal === 'claim'"
+  class="modal fade show d-block"
+  id="claimModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="claimModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="claimModalLabel">
+          <i class="fas fa-file-alt"></i> File a Claim
+        </h5>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>
+                <i class="fas fa-info-circle"></i> Claim Information for Policy
+                ID: {{ selectedPolicy?.policyId }}
+              </h3>
+              <form (ngSubmit)="submitClaim()">
+                <div class="form-group mt-4 mb-4">
+                  <label for="incidentDate"
+                    ><strong>Incident Date:</strong></label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="incidentDate"
+                    [(ngModel)]="claim.incidentDate"
+                    name="incidentDate"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="description"><strong>Description:</strong></label>
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    rows="3"
+                    [(ngModel)]="claim.description"
+                    name="description"
+                    placeholder="Enter a detailed description of the incident..."
+                    required
+                  ></textarea>
+                </div>
+                <!-- claim amount -->
+                <div class="form-group mt-4 mb-4">
+                  <label for="claimAmount"
+                    ><strong>Claim Amount:</strong></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="claimAmount"
+                    [(ngModel)]="claim.claimAmount"
+                    name="claimAmount"
+                    placeholder="Enter the claim amount..."
+                    required
+                  />
+                </div>
+                <div class="form-group mt-4">
+                  <label for="fileUpload"><strong>Upload File:</strong></label>
+                  <input
+                    type="file"
+                    class="form-control-file"
+                    id="fileUpload"
+                    (change)="onFileSelected($event)"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-danger mt-4">
+                  <i class="fas fa-paper-plane"></i> Submit Claim
+                </button>
+              </form>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-12">
+              <h6><i class="fas fa-info-circle"></i> Claim Guidelines</h6>
+              <p>
+                <strong>Note:</strong> Please ensure that all the information
+                provided is accurate and complete. Incomplete or inaccurate
+                information may result in the rejection of your claim.
+              </p>
+              <ul>
+                <li>Claims must be reported within 30 days of the incident.</li>
+                <li>Provide a detailed description of the incident.</li>
+                <li>
+                  Upload any relevant documents or images to support your claim.
+                </li>
+                <li>Contact our support team for any assistance.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeModal()">

@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-proposals',
@@ -24,7 +25,8 @@ export class ProposalComponent implements OnInit {
   constructor(
     private proposalService: ProposalService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.editProposalForm = this.fb.group({
       proposalId: [''],
@@ -54,11 +56,12 @@ export class ProposalComponent implements OnInit {
       .pipe(
         catchError((error) => {
           console.error('Error loading proposals', error);
-          alert('Failed to load proposals. Please try again later.');
+          this.toastService.showErrorToast('Failed to fetch proposals');
           return of([]);
         })
       )
       .subscribe((data) => {
+        this.toastService.showSuccessToast('Proposals fetched successfully');
         this.proposals = data;
       });
   }
@@ -83,12 +86,12 @@ export class ProposalComponent implements OnInit {
       .pipe(
         catchError((error) => {
           console.error('Error updating proposal', error);
-          alert('Failed to update proposal. Please try again later.');
+          this.toastService.showErrorToast('Failed to update proposal');
           return of(null);
         })
       )
       .subscribe(() => {
-        alert('Proposal updated successfully!');
+        this.toastService.showSuccessToast('Proposal updated successfully');
         this.loadProposals();
       });
   }
@@ -99,18 +102,18 @@ export class ProposalComponent implements OnInit {
       .pipe(
         catchError((error) => {
           console.error('Error deleting proposal', error);
-          alert('Failed to delete proposal. Please try again later.');
+          this.toastService.showErrorToast('Failed to delete proposal');
           return of(null);
         })
       )
       .subscribe(() => {
-        alert('Proposal deleted successfully!');
+        this.toastService.showSuccessToast('Proposal deleted successfully');
         this.loadProposals();
       });
   }
 
   updateDocument(proposalId: number) {
-    alert('Document update functionality to be implemented.');
+    this.toastService.showSuccessToast('Document update feature coming soon!');
   }
 
   openPaymentModal(proposal: any) {
@@ -140,13 +143,13 @@ export class ProposalComponent implements OnInit {
       .pipe(
         catchError((error) => {
           console.error('Error submitting payment', error);
-          alert('Failed to submit payment. Please try again later.');
+          this.toastService.showErrorToast('Failed to submit payment');
           return of(null);
         })
       )
       .subscribe((response) => {
         if (response) {
-          alert('Payment submitted successfully!');
+          this.toastService.showSuccessToast('Payment submitted successfully');
           this.router.navigate(['/policy']);
         }
         const modalElement = document.getElementById('paymentModal');

@@ -7,6 +7,7 @@ import {
   NgxOtpInputComponent,
   NgxOtpInputComponentOptions,
 } from 'ngx-otp-input';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -31,7 +32,8 @@ export class ResetPasswordComponent {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   handleOtpChange(event: any): void {
@@ -61,6 +63,7 @@ export class ResetPasswordComponent {
   submitResetPassword() {
     // Check if passwords match
     if (this.password !== this.confirmPassword) {
+      this.toastService.showErrorToast('Passwords do not match.');
       this.error = 'Passwords do not match.';
       this.message = null;
       return;
@@ -81,12 +84,18 @@ export class ResetPasswordComponent {
     this.http.post(apiUrl, payload).subscribe({
       next: (response: any) => {
         // Handle success
+        this.toastService.showSuccessToast(
+          'Your password has been successfully reset.'
+        );
         this.message = 'Your password has been successfully reset.';
         this.error = null;
         this.router.navigate(['/login']);
       },
       error: (err) => {
         // Handle errors
+        this.toastService.showErrorToast(
+          err.error?.Error || 'Failed to reset password.'
+        );
         this.error = err.error?.Error || 'Failed to reset password.';
         this.message = null;
       },

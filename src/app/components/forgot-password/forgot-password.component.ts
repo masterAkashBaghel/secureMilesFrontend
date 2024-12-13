@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { ToastService } from '../../services/toast/toast.service';
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
@@ -17,7 +18,11 @@ export class ForgotPasswordComponent {
   message: string = ''; // Property to display success messages
   error: string = ''; // Property to display error messages
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   submitForgotPassword(): void {
     const apiUrl = ` http://localhost:5294/api/User/forgot-password`; // Backend API endpoint
@@ -32,9 +37,15 @@ export class ForgotPasswordComponent {
       next: (response: any) => {
         this.message =
           response.message || 'Password reset email sent successfully!';
+        this.toastService.showSuccessToast(
+          this.message || 'Password reset email sent successfully!'
+        );
         this.router.navigate(['/reset-password']);
       },
       error: (err) => {
+        this.toastService.showErrorToast(
+          err.error?.Error || 'An error occurred. Please try again.'
+        );
         this.error = err.error?.Error || 'An error occurred. Please try again.';
       },
       complete: () => {

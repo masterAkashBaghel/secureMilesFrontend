@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VehiclesService } from '../../services/vehicle/vehicles.service';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-vehicle-carousel',
@@ -15,7 +16,10 @@ export class VehicleCarouselComponent implements OnInit {
   isLoading = true; // Loading state
   noVehiclesFound = false; // Flag for no vehicles
 
-  constructor(private vehiclesService: VehiclesService) {}
+  constructor(
+    private vehiclesService: VehiclesService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     if (this.vehicleType) {
@@ -27,12 +31,16 @@ export class VehicleCarouselComponent implements OnInit {
     this.isLoading = true;
     this.vehiclesService.fetchVehiclesByType(this.vehicleType).subscribe({
       next: (data) => {
+        this.toastService.showSuccessToast(
+          `Fetched ${this.vehicleType}s successfully`
+        );
         console.log('Fetched vehicles:', data);
         this.vehicles = data;
         this.noVehiclesFound = data.length === 0;
         this.isLoading = false;
       },
       error: (err) => {
+        this.toastService.showErrorToast('Failed to fetch vehicles');
         console.error('Error fetching vehicles:', err);
         this.isLoading = false;
         this.noVehiclesFound = true;

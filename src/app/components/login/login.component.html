@@ -44,13 +44,27 @@
               A valid email is required.
             </div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 position-relative">
             <input
-              type="password"
+              [type]="passwordFieldType"
               class="form-control"
               formControlName="password"
               placeholder="Enter your password"
             />
+            <i
+              class="fa"
+              [ngClass]="
+                passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'
+              "
+              (click)="togglePasswordVisibility()"
+              style="
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+              "
+            ></i>
             <div
               *ngIf="
                 loginForm.get('password')?.invalid &&
@@ -75,15 +89,14 @@
             >Sign up here</a
           >
         </p>
-         <p class="mt-3 text-center">
+        <p class="mt-3 text-center">
           <a routerLink="/forgot-password" class="text-decoration-none">
             Forgot Password?
           </a>
         </p>
-         <div *ngIf="errorMessage" class="alert alert-danger">
+        <div *ngIf="errorMessage" class="alert alert-danger">
           {{ errorMessage }}
         </div>
- 
       </div>
 
       <!-- Image Block -->

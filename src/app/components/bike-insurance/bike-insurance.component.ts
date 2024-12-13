@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { VehicleCarouselComponent } from '../vehicle-carousel/vehicle-carousel.component';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-bike-insurance',
@@ -16,7 +17,11 @@ import { VehicleCarouselComponent } from '../vehicle-carousel/vehicle-carousel.c
 export class BikeInsuranceComponent {
   modalInstance: any;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
   // Check if user is logged in
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -57,8 +62,6 @@ export class BikeInsuranceComponent {
 
   // Handle Get Started button click
   handleGetStarted() {
-    console.log('Get Started clicked');
-    console.log('Is logged in:', this.isLoggedIn());
     if (this.isLoggedIn()) {
       this.redirectToCarPolicy();
     } else {

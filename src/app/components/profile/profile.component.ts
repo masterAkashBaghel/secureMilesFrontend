@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
-    private router: Router
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -77,11 +77,13 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.valid) {
       this.userService.updateUserProfile(this.profileForm.value).subscribe(
         (response) => {
+          this;
           this.successMessage = 'Profile updated successfully!';
           // Optionally, redirect after successful update
           // this.router.navigate(['/dashboard']);
         },
         (error) => {
+          this.toastService.showErrorToast('Failed to update profile');
           this.errorMessage = 'Failed to update profile. Please try again.';
         }
       );

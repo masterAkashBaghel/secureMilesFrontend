@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AdminService } from '../../services/admin/admin.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -46,13 +47,17 @@ export class AdminDashboardComponent implements OnInit {
 
   errorMessage: string | null = null;
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.adminService
       .getAdminDashboardData()
       .pipe(
         catchError((error) => {
+          this.toastService.showErrorToast('Failed to load dashboard data');
           this.errorMessage = 'Failed to load dashboard data';
           console.error('Error loading dashboard data', error);
           return of(null); // Return a null observable to continue the stream
@@ -60,6 +65,9 @@ export class AdminDashboardComponent implements OnInit {
       )
       .subscribe((data) => {
         if (data) {
+          this.toastService.showSuccessToast(
+            'Dashboard data loaded successfully'
+          );
           this.cards[0].count = data.totalUsers;
           this.cards[1].count = data.totalClaims;
           this.cards[2].count = data.totalPolicies;

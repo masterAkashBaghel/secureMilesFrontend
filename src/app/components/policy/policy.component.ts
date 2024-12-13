@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ClaimsService } from '../../services/claims/claims.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-policy',
@@ -30,7 +31,8 @@ export class PolicyComponent implements OnInit {
     private policyService: PolicyService,
     private documentsService: DocumentsService,
     private claimService: ClaimsService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -40,17 +42,26 @@ export class PolicyComponent implements OnInit {
   loadPolicies(): void {
     this.policyService.getAllPolicies().subscribe({
       next: (data) => (this.policies = data),
-      error: (err) => console.error('Error fetching policies:', err),
+      error: (err) => {
+        console.error('Error fetching policies:', err);
+        this.toastService.showErrorToast('Failed to fetch policies');
+      },
     });
   }
 
   viewPolicyDetails(policyId: number): void {
     this.policyService.getPolicyDetails(policyId).subscribe({
       next: (data) => {
+        this.toastService.showSuccessToast(
+          'Policy details fetched successfully'
+        );
         this.selectedPolicy = data;
         this.showModal = 'policyDetails';
       },
-      error: (err) => console.error('Error fetching policy details:', err),
+      error: (err) => {
+        console.error('Error fetching policy details:', err);
+        this.toastService.showErrorToast('Failed to fetch policy details');
+      },
     });
   }
 
@@ -58,16 +69,26 @@ export class PolicyComponent implements OnInit {
     this.policyService.getPolicyDetails(policyId).subscribe({
       next: (data) => {
         this.documentsService.generatePolicyPDF(data);
+        this.toastService.showSuccessToast('Policy downloaded successfully');
       },
-      error: (err) => console.error('Error fetching policy details:', err),
+      error: (err) => {
+        this.toastService.showErrorToast('Failed to download policy');
+        console.error('Error downloading policy:', err);
+      },
     });
   }
 
   renewPolicy(policyId: number): void {
     const paymentDetails = { amount: 12000 };
     this.policyService.renewPolicy(policyId, paymentDetails).subscribe({
-      next: () => alert('Policy renewed successfully!'),
-      error: (err) => console.error('Error renewing policy:', err),
+      next: () => {
+        this.toastService.showSuccessToast('Policy renewed successfully');
+        this.loadPolicies();
+      },
+      error: (err) => {
+        this.toastService.showErrorToast('Failed to renew policy');
+        console.error('Error renewing policy:', err);
+      },
     });
   }
 
@@ -95,16 +116,16 @@ export class PolicyComponent implements OnInit {
         next: (response) => {
           console.log('Claim submitted:', response);
           this.showModal = null;
-          alert('Claim submitted successfully!');
+          this.toastService.showSuccessToast('Claim submitted successfully');
           this.router.navigate(['/claim']);
         },
         error: (err) => {
           console.error('Error submitting claim:', err);
-          alert('Error submitting claim. Please try again.');
+          this.toastService.showErrorToast('Failed to submit claim');
         },
       });
     } else {
-      alert('Please fill in all the required fields.');
+      this.toastService.showErrorToast('Please fill all fields');
     }
   }
 

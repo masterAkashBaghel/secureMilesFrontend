@@ -3,33 +3,27 @@
   height: 100vh;
   background: linear-gradient(135deg, #d7c3ee, #d1dff4, #ebe8f7);
   display: flex;
-   justify-content: center;
+  justify-content: center;
   align-items: center;
-  
-  
 }
- 
- 
 
 .login-form-block {
   background: #ffffff;
   border-radius: 15px 15px 15px 15px; /* Rounded corners on the left side */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   height: 500px;
-   
 }
 
 .login-image-block {
   text-align: center;
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   height: 500px;
-
- }
+}
 
 .login-image-block img {
   max-width: 100%;

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ClaimsService } from '../../services/claims/claims.service';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../services/toast/toast.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-claim',
@@ -14,30 +17,66 @@ export class ClaimComponent implements OnInit {
   selectedClaim: any = null;
   showModal: string | null = null; // Track which modal to show
 
-  constructor(private claimService: ClaimsService) {}
+  constructor(
+    private claimService: ClaimsService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.fetchClaims();
   }
 
   fetchClaims(): void {
-    this.claimService.getAllClaims().subscribe((data) => {
-      this.claims = data;
-    });
+    this.claimService
+      .getAllClaims()
+      .pipe(
+        catchError((error) => {
+          this.toastService.showErrorToast('Failed to fetch claims');
+          return of([]);
+        })
+      )
+      .subscribe((data) => {
+        this.toastService.showSuccessToast('Claims fetched successfully');
+        this.claims = data;
+      });
   }
 
   viewClaimDetails(claimId: number): void {
-    this.claimService.getClaimDetails(claimId).subscribe((data) => {
-      this.selectedClaim = data;
-      this.showModal = 'claimDetails';
-    });
+    this.claimService
+      .getClaimDetails(claimId)
+      .pipe(
+        catchError((error) => {
+          this.toastService.showErrorToast('Failed to fetch claim details');
+          return of(null);
+        })
+      )
+      .subscribe((data) => {
+        if (data) {
+          this.selectedClaim = data;
+          this.showModal = 'claimDetails';
+        }
+      });
   }
 
   deleteClaim(claimId: number): void {
     if (confirm('Are you sure you want to delete this claim?')) {
-      this.claimService.deleteClaim(claimId).subscribe(() => {
-        this.claims = this.claims.filter((claim) => claim.claimId !== claimId);
-      });
+      this.claimService
+        .deleteClaim(claimId)
+        .pipe(
+          catchError((error) => {
+            this.toastService.showErrorToast('Failed to delete claim');
+            return of(null);
+          })
+        )
+        .subscribe((data) => {
+          if (data) {
+            this.toastService.showSuccessToast('Claim deleted successfully');
+
+            this.claims = this.claims.filter(
+              (claim) => claim.claimId !== claimId
+            );
+          }
+        });
     }
   }
 

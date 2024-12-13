@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PolicySelectionComponent } from '../policy-selection/policy-selection.component';
 import { Tooltip } from 'bootstrap';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-insurance',
@@ -30,7 +31,8 @@ export class InsuranceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: VehiclesService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -75,16 +77,14 @@ export class InsuranceComponent implements OnInit {
           this.successMessage = response.message;
           this.policies = response.policies;
           this.isPolicySelectionVisible = true;
-          this.snackBar.open(
-            'Vehicle added successfully. Choose a plan to proceed.',
-            'Close',
-            { duration: 5000 }
+          this.toastService.showSuccessToast(
+            this.successMessage + ' Please select a policy.'
           );
         },
         (error) => {
           this.errorMessage =
             'Failed to save vehicle details. Please try again.';
-          this.snackBar.open(this.errorMessage, 'Close', { duration: 5000 });
+          this.toastService.showErrorToast(this.errorMessage);
         }
       );
     }

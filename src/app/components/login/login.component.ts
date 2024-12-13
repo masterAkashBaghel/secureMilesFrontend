@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -16,16 +17,23 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
+  passwordFieldType: string = 'password';
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  togglePasswordVisibility() {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
   role: string = '';
@@ -39,13 +47,16 @@ export class LoginComponent {
           // Store the token and redirect
           this.authService.saveToken(response.token);
           this.role = this.authService.getRole();
-
+          this.toastService.showSuccessToast('Login successful');
           this.authService.getRole() === 'Admin'
             ? this.router.navigate(['admin-dashboard'])
             : this.router.navigate(['']);
         },
         (error) => {
           // Handle login failure
+          this.toastService.showErrorToast(
+            error.error.message || 'Invalid credentials. Please try again.'
+          );
           this.errorMessage = 'Invalid credentials. Please try again.';
         }
       );

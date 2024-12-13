@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { InsuranceService } from '../../services/insurance/insurance.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-policy-selection',
@@ -21,7 +22,8 @@ export class PolicySelectionComponent {
 
   constructor(
     private insuranceService: InsuranceService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   submitProposal(): void {
@@ -34,16 +36,16 @@ export class PolicySelectionComponent {
         premiumAmount: this.selectedPolicy.premiumAmount,
       };
 
-      console.log('Proposal Payload:', payload);
-
       // Call the service with the payload
       this.insuranceService.submitProposal(payload).subscribe({
         next: (response: any) => {
           console.log('Proposal Response:', response);
+          this.toastService.showSuccessToast('Proposal submitted successfully');
           this.selectedProposalId = response.proposalId;
           this.documentsRequired = true; // Toggle to document submission view
         },
         error: (error) => {
+          this.toastService.showErrorToast('Failed to submit proposal');
           console.error('Error submitting proposal:', error);
         },
       });
@@ -74,15 +76,18 @@ export class PolicySelectionComponent {
       this.insuranceService.uploadDocuments(formData).subscribe({
         next: (response) => {
           navigator.vibrate(200);
+          this.toastService.showSuccessToast('Documents uploaded successfully');
           this.router.navigate(['proposals']);
 
           console.log('Documents uploaded successfully:', response);
         },
         error: (error) => {
+          this.toastService.showErrorToast('Failed to upload documents');
           console.error('Error uploading documents:', error);
         },
       });
     } else {
+      this.toastService.showErrorToast('No VehicleInsurance file selected.');
       console.error('No VehicleInsurance file selected.');
     }
   }

@@ -6,8 +6,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PolicySelectionComponent } from '../policy-selection/policy-selection.component';
 import { Tooltip } from 'bootstrap';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastService } from '../../services/toast/toast.service';
+import { Router } from '@angular/router';
+import { PolicyDataService } from '../../services/policyData/policy-data-service.service';
 
 @Component({
   selector: 'app-insurance',
@@ -31,8 +32,9 @@ export class InsuranceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: VehiclesService,
-    private snackBar: MatSnackBar,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router,
+    private policyDataService: PolicyDataService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +82,9 @@ export class InsuranceComponent implements OnInit {
           this.toastService.showSuccessToast(
             this.successMessage + ' Please select a policy.'
           );
+          // route to policy selection by passing the policies
+          this.policyDataService.setPolicies(this.policies);
+          this.router.navigate(['/policy-selection']);
         },
         (error) => {
           this.errorMessage =

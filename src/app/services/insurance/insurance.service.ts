@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class InsuranceService {
   private readonly proposalsApiUrl = 'http://localhost:5294/api/Proposals';
-  private readonly documentsApiUrl = 'http://localhost:5294/api/Documents';
 
   constructor(private http: HttpClient) {}
 
@@ -28,10 +27,11 @@ export class InsuranceService {
 
   // Upload documents with FormData
   uploadDocuments(formData: FormData): Observable<any> {
+    console.log('Uploading documents with FormData:', formData);
     for (var pair of (formData as any).entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
-    return this.http.post(this.documentsApiUrl, formData, {
+    return this.http.post(this.proposalsApiUrl, formData, {
       headers: this.getAuthHeaders(), // No 'Content-Type' needed for FormData
     });
   }

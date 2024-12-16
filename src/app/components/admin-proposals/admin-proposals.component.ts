@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin/admin.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-admin-proposals',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgbPagination],
   templateUrl: './admin-proposals.component.html',
   styleUrls: ['./admin-proposals.component.css'],
 })
@@ -16,30 +19,33 @@ export class AdminProposalsComponent implements OnInit {
   pendingProposals: any[] = [];
   canceledProposals: any[] = [];
   selectedProposal: any = null;
+  totalCount: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 10;
 
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-    this.fetchProposals(1, 20);
+    this.fetchProposals(this.currentPage, this.pageSize);
   }
 
-  /**
-   * Fetch proposals from the API.
-   * @param pageNumber Page number.
-   * @param pageSize Page size.
-   */
   fetchProposals(pageNumber: number, pageSize: number): void {
     this.adminService
       .fetchProposals(pageNumber, pageSize)
+      .pipe(
+        catchError((error) => {
+          alert('Failed to load proposals');
+          return of({ proposals: [], totalCount: 0, currentPage: 1 });
+        })
+      )
       .subscribe((response) => {
         this.proposals = response.proposals;
+        this.totalCount = response.totalCount;
+        this.currentPage = response.currentPage;
         this.filterProposals();
       });
   }
 
-  /**
-   * Filter proposals based on their status.
-   */
   filterProposals(): void {
     this.approvedProposals = this.proposals.filter(
       (proposal) => proposal.status === 'Approved'
@@ -52,10 +58,6 @@ export class AdminProposalsComponent implements OnInit {
     );
   }
 
-  /**
-   * Fetch proposal details and display in the modal.
-   * @param proposalId Proposal ID.
-   */
   viewDetails(proposalId: number): void {
     this.adminService.getProposalDetails(proposalId).subscribe((response) => {
       this.selectedProposal = response;
@@ -66,39 +68,30 @@ export class AdminProposalsComponent implements OnInit {
     });
   }
 
-  /**
-   * Approve the selected proposal.
-   */
   approveProposal(): void {
     if (this.selectedProposal) {
       this.adminService
         .approveProposal(this.selectedProposal.proposalId)
         .subscribe(() => {
           alert('Proposal approved successfully!');
-          this.fetchProposals(1, 10);
+          this.fetchProposals(this.currentPage, this.pageSize);
           this.closeModal();
         });
     }
   }
 
-  /**
-   * Reject the selected proposal.
-   */
   rejectProposal(): void {
     if (this.selectedProposal) {
       this.adminService
         .rejectProposal(this.selectedProposal.proposalId)
         .subscribe(() => {
           alert('Proposal rejected successfully!');
-          this.fetchProposals(1, 20);
+          this.fetchProposals(this.currentPage, this.pageSize);
           this.closeModal();
         });
     }
   }
 
-  /**
-   * Close the modal.
-   */
   private closeModal(): void {
     const modal = document.getElementById('proposalDetailsModal');
     if (modal) {
@@ -109,5 +102,10 @@ export class AdminProposalsComponent implements OnInit {
       const backdrop = document.querySelector('.modal-backdrop');
       if (backdrop) backdrop.remove();
     }
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.fetchProposals(this.currentPage, this.pageSize);
   }
 }

@@ -205,4 +205,14 @@
       </div>
     </div>
   </div>
+  <!-- Pagination -->
+  <nav aria-label="Users Pagination" class="mt-3">
+    <ngb-pagination
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [collectionSize]="totalCount"
+      (pageChange)="onPageChange($event)"
+      [boundaryLinks]="true"
+    ></ngb-pagination>
+  </nav>
 </div>

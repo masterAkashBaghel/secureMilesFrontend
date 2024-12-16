@@ -8,6 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class PolicyService {
   private apiBaseUrl = 'http://localhost:5294/api/Policy';
+  private adminApiBaseUrl = 'http://localhost:5294/api/admin/policies';
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
@@ -52,5 +53,15 @@ export class PolicyService {
   // File a claim
   fileClaim(claimDetails: any): Observable<any> {
     return this.http.post('http://localhost:5294/api/claims', claimDetails);
+  }
+
+  // Fetch policies for admin
+  getPolicyForAdmin(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.adminApiBaseUrl}?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: this.getAuthHeaders(),
+      }
+    );
   }
 }

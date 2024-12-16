@@ -15,17 +15,17 @@
       <div class="col-md-4">
         <h5 class="mb-4">Quick Links</h5>
         <ul class="list-unstyled">
-          <li>
+          <li *ngIf="getRole() !== 'Admin'">
             <a routerLink="/insurance" class="text-white text-decoration-none"
               >Car Insurance</a
             >
           </li>
-          <li>
+          <li *ngIf="getRole() !== 'Admin'">
             <a routerLink="/insurance" class="text-white text-decoration-none"
               >Bike Insurance</a
             >
           </li>
-          <li>
+          <li *ngIf="getRole() !== 'Admin'">
             <a routerLink="/insurance" class="text-white text-decoration-none"
               >Truck Insurance</a
             >
@@ -33,6 +33,13 @@
           <li>
             <a routerLink="/contact" class="text-white text-decoration-none"
               >Contact Us</a
+            >
+          </li>
+          <li *ngIf="getRole() === 'Admin'">
+            <a
+              routerLink="/admin-dashboard"
+              class="text-white text-decoration-none"
+              >Admin Dashboard</a
             >
           </li>
         </ul>

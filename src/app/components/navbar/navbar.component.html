@@ -21,70 +21,78 @@
     <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
-        </li>
-        <li *ngIf="isLoggedIn() && getRole() !== 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/policy">Policies</a>
-        </li>
-
-        <li *ngIf="isLoggedIn() && getRole() !== 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/claim">Claims</a>
-        </li>
-
-        <li class="nav-item">
+        <!-- Common Links -->
+        <li *ngIf="getRole() !== 'Admin'" class="nav-item">
           <a class="nav-link" routerLink="/contact">Contact Us</a>
         </li>
 
-        <li *ngIf="isLoggedIn() && getRole() !== 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/proposals">Proposals</a>
-        </li>
+        <!-- User Links -->
+        <ng-container *ngIf="isLoggedIn() && getRole() !== 'Admin'">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/policy">Policies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/claim">Claims</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/proposals">Proposals</a>
+          </li>
+        </ng-container>
 
-        <li *ngIf="isLoggedIn() && getRole() === 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/users">Users</a>
-        </li>
+        <!-- Admin Links -->
+        <ng-container *ngIf="isLoggedIn() && getRole() === 'Admin'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="admin/users">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/claims">Claims</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/proposals">Proposals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/policies">Policies</a>
+          </li>
+        </ng-container>
 
-        <li *ngIf="isLoggedIn() && getRole() === 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/admin-claims">Claims</a>
-        </li>
+        <!-- Authentication Links -->
+        <ng-container *ngIf="!isLoggedIn()">
+          <li class="nav-item">
+            <a
+              class="btn btn-primary nav-link text-green btn-green-bg"
+              [routerLink]="['/login']"
+              >Login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="btn btn-primary nav-link text-black btn-white-bg"
+              [routerLink]="['/signup']"
+              >Sign Up</a
+            >
+          </li>
+        </ng-container>
 
-        <li *ngIf="isLoggedIn() && getRole() === 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/admin-proposals">Proposals</a>
-        </li>
-
-        <li *ngIf="isLoggedIn() && getRole() === 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/admin-policies">Policies</a>
-        </li>
-
-        <!-- Display Login and Sign Up buttons only when the user is NOT logged in -->
-        <li *ngIf="!isLoggedIn()" class="nav-item">
-          <a
-            class="btn btn-primary nav-link text-green btn-green-bg"
-            [routerLink]="['/login']"
-            >Login</a
-          >
-        </li>
-        <li *ngIf="!isLoggedIn()" class="nav-item">
-          <a
-            class="btn btn-primary nav-link text-black btn-white-bg"
-            [routerLink]="['/signup']"
-            >Sign Up</a
-          >
-        </li>
-
-        <!-- Display Profile and Logout buttons only when the user is logged in -->
-        <li *ngIf="isLoggedIn()" class="nav-item">
-          <a class="nav-link" routerLink="/profile">
-            <i class="fas fa-user"></i> Profile
-          </a>
-        </li>
-        <li *ngIf="isLoggedIn()" class="nav-item">
-          <a
-            class="btn btn-primary nav-link text-white btn-danger-bg"
-            (click)="logout()"
-            >Logout</a
-          >
-        </li>
+        <!-- Profile and Logout Links -->
+        <ng-container *ngIf="isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profile">
+              <i class="fas fa-user"></i> Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="btn btn-primary nav-link text-white btn-danger-bg"
+              (click)="logout()"
+              >Logout</a
+            >
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>

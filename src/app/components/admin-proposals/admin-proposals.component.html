@@ -223,4 +223,12 @@
       </div>
     </div>
   </div>
+  <!-- Pagination -->
+  <ngb-pagination
+    [collectionSize]="totalCount"
+    [(page)]="currentPage"
+    [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)"
+  >
+  </ngb-pagination>
 </div>

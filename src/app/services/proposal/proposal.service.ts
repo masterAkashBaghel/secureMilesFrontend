@@ -11,7 +11,6 @@ export class ProposalService {
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
-    console.log('Token:', token); // Debugging statement
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,

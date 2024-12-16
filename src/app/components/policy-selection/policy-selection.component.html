@@ -1,66 +1,89 @@
-<div class="row">
-  <div class="col-md-4" *ngFor="let policy of policies">
-    <div class="card mb-4 shadow-sm custom-card">
-      <div class="card-body">
-        <h5 class="card-title">
-          <i class="fas fa-shield-alt"></i> {{ policy.policyName }}
-        </h5>
-        <p class="card-text">
-          <strong>Policy Type:</strong> {{ policy.policyType }}
-        </p>
-        <p class="card-text">
-          <strong>Description:</strong> {{ policy.policyDescription }}
-        </p>
-        <p class="card-text">
-          <strong>Terms:</strong> {{ policy.policyTerms }}
-        </p>
-        <p class="card-text">
-          <strong>Coverage:</strong> {{ policy.policyCoverage }}
-        </p>
-        <p class="card-text">
-          <strong>Coverage Amount:</strong> ${{ policy.coverageAmount }}
-        </p>
-        <p class="card-text">
-          <strong>Premium:</strong> ${{ policy.premiumAmount }}
-        </p>
-        <ul>
-          <li *ngFor="let addOn of policy.addOns">
-            <strong>Add-On:</strong> {{ addOn }}
-          </li>
-        </ul>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="policySelection"
-            [value]="policy"
-            [(ngModel)]="selectedPolicy"
-          />
-          <label class="form-check-label"> Select This Policy </label>
+<div>
+  <div class="container mt-5 header2 text-center">
+    <h2><i class="fas fa-file-alt"></i> Choose Your Policy</h2>
+    <p>
+      Select a policy from the options below to continue with your policy
+      selection process.
+    </p>
+  </div>
+
+  <div class="container mt-5 header">
+    <div class="main-container">
+      <div class="col-md-4" *ngFor="let policy of policies; let i = index">
+        <div
+          class="card mb-4 shadow-sm custom-card"
+          [ngClass]="getCardClass(i)"
+        >
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="fas fa-shield-alt"></i> {{ policy.policyName }}
+            </h5>
+            <p class="card-text">
+              <strong>Policy Type:</strong> {{ policy.policyType }}
+            </p>
+            <p class="card-text">
+              <strong>Description:</strong> {{ policy.policyDescription }}
+            </p>
+            <p class="card-text">
+              <strong>Terms:</strong> {{ policy.policyTerms }}
+            </p>
+            <p class="card-text">
+              <strong>Coverage:</strong> {{ policy.policyCoverage }}
+            </p>
+            <p class="card-text">
+              <strong>Coverage Amount:</strong> ${{ policy.coverageAmount }}
+            </p>
+            <p class="card-text">
+              <strong>Premium:</strong> ${{ policy.premiumAmount }}
+            </p>
+            <ul>
+              <li *ngFor="let addOn of policy.addOns">
+                <strong>Add-On:</strong> {{ addOn }}
+              </li>
+            </ul>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="policySelection"
+                [value]="policy"
+                [(ngModel)]="selectedPolicy"
+              />
+              <label class="form-check-label"> Select This Policy </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div *ngIf="selectedPolicy" class="mt-4">
-  <button class="btn btn-primary" (click)="submitProposal()">
-    Submit Proposal
-  </button>
-</div>
-
-<div *ngIf="documentsRequired">
-  <h3>Upload Required Documents For your Policy</h3>
-  <form (ngSubmit)="submitDocuments()">
-    <div class="mb-3">
-      <label for="VehicleInsurance" class="form-label">Vehicle Documents</label>
-      <input
-        type="file"
-        id="VehicleInsurance"
-        class="form-control"
-        (change)="onFileSelect($event, 'VehicleInsurance')"
-      />
+    <div *ngIf="selectedPolicy" class="upload-section">
+      <h3>
+        <i class="fas fa-upload"></i> Upload Required Documents For Your Policy
+      </h3>
+      <p>
+        Please upload the following documents to proceed with your policy
+        selection.
+      </p>
+      <p>
+        <strong><i class="fas fa-car"></i> Vehicle Insurance:</strong> Please
+        upload your vehicle insurance document.
+      </p>
+      <form (ngSubmit)="submitDocuments()">
+        <div class="mb-3">
+          <label for="VehicleInsurance" class="form-label">
+            <i class="fas fa-file-alt"></i> Vehicle Documents
+          </label>
+          <input
+            type="file"
+            id="VehicleInsurance"
+            class="form-control"
+            (change)="onFileSelect($event, 'VehicleInsurance')"
+          />
+        </div>
+        <button type="submit" class="btn btn-success">
+          <i class="fas fa-paper-plane"></i> Submit Documents
+        </button>
+      </form>
     </div>
-    <button type="submit" class="btn btn-success">Submit Documents</button>
-  </form>
+  </div>
 </div>

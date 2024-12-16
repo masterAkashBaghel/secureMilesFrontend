@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgbPagination],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
@@ -18,6 +19,9 @@ export class UsersComponent implements OnInit {
   activeUsers: any[] = [];
   inactiveUsers: any[] = [];
   selectedUser: any = null;
+  totalCount: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 10;
 
   constructor(
     private adminService: AdminService,
@@ -25,7 +29,7 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchUsers(1, 20);
+    this.fetchUsers(this.currentPage, this.pageSize);
   }
 
   fetchUsers(pageNumber: number, pageSize: number): void {
@@ -39,6 +43,8 @@ export class UsersComponent implements OnInit {
       )
       .subscribe((response) => {
         this.users = response.users;
+        this.totalCount = response.totalCount;
+        this.currentPage = pageNumber;
         this.filterUsersByStatus();
       });
   }
@@ -84,5 +90,10 @@ export class UsersComponent implements OnInit {
           modal.show();
         }
       });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.fetchUsers(page, this.pageSize);
   }
 }

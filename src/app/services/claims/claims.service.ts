@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 export class ClaimsService {
   private readonly claimUrl = 'http://localhost:5294/api/Claims';
 
+  private readonly adminUrl = 'http://localhost:5294/api/Admin/claims';
+
   constructor(private http: HttpClient) {}
 
   // Function to get authorization headers
@@ -42,5 +44,41 @@ export class ClaimsService {
     return this.http.delete(`${this.claimUrl}/${claimId}`, {
       headers: this.getAuthHeaders().set('Content-Type', 'application/json'),
     });
+  }
+
+  getClaimsForAdmin(pageNumber: number, pageSize: number): Observable<any> {
+    const url = `${this.adminUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    return this.http.get<any>(url, {
+      headers: this.getAuthHeaders().set('Content-Type', 'application/json'),
+    });
+  }
+
+  getClaimDetailsForAdmin(claimId: number, userId: number): Observable<any> {
+    const url = `${this.adminUrl}/${claimId}/details/${userId}`;
+    return this.http.get<any>(url, {
+      headers: this.getAuthHeaders().set('Content-Type', 'application/json'),
+    });
+  }
+
+  approveClaim(claimId: number, claimAmount: number): Observable<any> {
+    const url = `${this.adminUrl}/${claimId}/approve`;
+    return this.http.put(
+      url,
+      { claimAmount },
+      {
+        headers: this.getAuthHeaders().set('Content-Type', 'application/json'),
+      }
+    );
+  }
+
+  rejectClaim(claimId: number, reason: string): Observable<any> {
+    const url = `http://localhost:5294/api/claims/${claimId}/reject`;
+    return this.http.put(
+      url,
+      { reason },
+      {
+        headers: this.getAuthHeaders().set('Content-Type', 'application/json'),
+      }
+    );
   }
 }

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InsuranceService } from '../../services/insurance/insurance.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
+import { PolicyDataService } from '../../services/policyData/policy-data-service.service';
 
 @Component({
   selector: 'app-policy-selection',
@@ -13,43 +14,22 @@ import { ToastService } from '../../services/toast/toast.service';
   templateUrl: './policy-selection.component.html',
   styleUrls: ['./policy-selection.component.css'],
 })
-export class PolicySelectionComponent {
-  @Input() policies: any[] = [];
+export class PolicySelectionComponent implements OnInit {
+  policies: any[] = [];
   selectedPolicy: any = null;
-  documentsRequired = false;
   files: { [key: string]: File } = {};
   selectedProposalId: any = null;
 
   constructor(
     private insuranceService: InsuranceService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private policyDataService: PolicyDataService // Inject PolicyDataService
   ) {}
 
-  submitProposal(): void {
-    if (this.selectedPolicy) {
-      // Collect all the required data
-      const payload = {
-        vehicleId: this.selectedPolicy.vehicleID,
-        requestedCoverage: this.selectedPolicy.coverageAmount,
-        policyType: this.selectedPolicy.policyType,
-        premiumAmount: this.selectedPolicy.premiumAmount,
-      };
-
-      // Call the service with the payload
-      this.insuranceService.submitProposal(payload).subscribe({
-        next: (response: any) => {
-          console.log('Proposal Response:', response);
-          this.toastService.showSuccessToast('Proposal submitted successfully');
-          this.selectedProposalId = response.proposalId;
-          this.documentsRequired = true; // Toggle to document submission view
-        },
-        error: (error) => {
-          this.toastService.showErrorToast('Failed to submit proposal');
-          console.error('Error submitting proposal:', error);
-        },
-      });
-    }
+  ngOnInit(): void {
+    // Retrieve policies from the shared service
+    this.policies = this.policyDataService.getPolicies();
   }
 
   onFileSelect(event: Event, fileType: string): void {
@@ -64,22 +44,28 @@ export class PolicySelectionComponent {
   submitDocuments(): void {
     if (this.files['VehicleInsurance']) {
       const formData = new FormData();
-      formData.append('Type', 'VehicleInsurance');
-      formData.append('DocumentFile', this.files['VehicleInsurance']);
-      formData.append('ProposalID', this.selectedProposalId);
-      // Log the FormData content
-      // Log the FormData content
+      formData.append('ProposalDocument', this.files['VehicleInsurance']);
+      formData.append('VehicleId', this.selectedPolicy.vehicleID.toString()); // Ensure it's a string
+      formData.append(
+        'RequestedCoverage',
+        this.selectedPolicy.coverageAmount.toString()
+      ); // Ensure it's a string
+      formData.append('PolicyType', this.selectedPolicy.policyType);
+      formData.append(
+        'PremiumAmount',
+        this.selectedPolicy.premiumAmount.toString()
+      ); // Ensure it's a string
+
+      // Log the FormData content for debugging
       formData.forEach((value, key) => {
         console.log(`${key}: ${value}`);
       });
-      // Ensure the API expects FormData correctly
+
       this.insuranceService.uploadDocuments(formData).subscribe({
         next: (response) => {
           navigator.vibrate(200);
-          this.toastService.showSuccessToast('Documents uploaded successfully');
+          this.toastService.showSuccessToast('Proposal submitted successfully');
           this.router.navigate(['proposals']);
-
-          console.log('Documents uploaded successfully:', response);
         },
         error: (error) => {
           this.toastService.showErrorToast('Failed to upload documents');
@@ -90,5 +76,10 @@ export class PolicySelectionComponent {
       this.toastService.showErrorToast('No VehicleInsurance file selected.');
       console.error('No VehicleInsurance file selected.');
     }
+  }
+
+  getCardClass(index: number) {
+    const classes = ['bg-warning', 'bg-info', 'bg-light'];
+    return classes[index % classes.length];
   }
 }

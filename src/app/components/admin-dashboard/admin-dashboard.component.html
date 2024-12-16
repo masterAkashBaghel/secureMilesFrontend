@@ -67,6 +67,7 @@
             }}</strong>
             {{ card.title.toLowerCase() }}
           </p>
+
           <a
             [routerLink]="card.link"
             class="btn btn-primary"
@@ -75,6 +76,55 @@
           >
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="text-center mt-4">Reports and Insights</h2>
+<div class="row mt-4 head">
+  <!-- Policies Chart -->
+  <div class="col-md-4">
+    <div>
+      <h5 class="text-center header">
+        <i class="fas fa-chart-pie icon"></i> Policies Overview
+      </h5>
+      <ngx-charts-pie-chart
+        [results]="charts.policiesByMonth"
+        [legend]="true"
+        [labels]="true"
+        [doughnut]="true"
+        [view]="[300, 300]"
+      ></ngx-charts-pie-chart>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <h5 class="text-center header">
+        <i class="fas fa-file-alt icon"></i> Claims Overview
+      </h5>
+      <ngx-charts-pie-chart
+        [results]="charts.claimsByMonth"
+        [legend]="true"
+        [labels]="true"
+        [doughnut]="false"
+        [view]="[300, 300]"
+      ></ngx-charts-pie-chart>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>
+      <h5 class="text-center header">
+        <i class="fas fa-file-signature icon"></i> Proposals Overview
+      </h5>
+      <ngx-charts-pie-chart
+        [results]="charts.proposalsByMonth"
+        [legend]="true"
+        [labels]="true"
+        [doughnut]="false"
+        [view]="[300, 300]"
+      ></ngx-charts-pie-chart>
     </div>
   </div>
 </div>

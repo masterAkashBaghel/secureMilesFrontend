@@ -105,3 +105,9 @@
   text-align: center;
   color: #800202;
 }
+
+.head {
+  display: flex;
+  align-self: center;
+  margin: 0 auto;
+}

@@ -83,10 +83,6 @@ export class AdminDashboardComponent implements OnInit {
       )
       .subscribe((data) => {
         if (data) {
-          this.toastService.showSuccessToast(
-            'Dashboard data loaded successfully'
-          );
-
           // Assign counts to cards
           this.cards[0].count = data.totalUsers;
           this.cards[1].count = data.totalClaims;

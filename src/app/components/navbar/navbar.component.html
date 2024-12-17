@@ -22,9 +22,6 @@
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- Common Links -->
-        <li *ngIf="getRole() !== 'Admin'" class="nav-item">
-          <a class="nav-link" routerLink="/contact">Contact Us</a>
-        </li>
 
         <!-- User Links -->
         <ng-container *ngIf="isLoggedIn() && getRole() !== 'Admin'">
@@ -43,7 +40,9 @@
             <a class="nav-link" routerLink="/proposals">Proposals</a>
           </li>
         </ng-container>
-
+        <li *ngIf="getRole() !== 'Admin'" class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contact Us</a>
+        </li>
         <!-- Admin Links -->
         <ng-container *ngIf="isLoggedIn() && getRole() === 'Admin'">
           <li class="nav-item">
@@ -82,7 +81,7 @@
         <ng-container *ngIf="isLoggedIn()">
           <li class="nav-item">
             <a class="nav-link" routerLink="/profile">
-              <i class="fas fa-user"></i> Profile
+              <i class="fas fa-user"></i> {{ userEmail }}
             </a>
           </li>
           <li class="nav-item">

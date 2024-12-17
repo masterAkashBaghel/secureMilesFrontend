@@ -47,6 +47,7 @@ export class LoginComponent {
           // Store the token and redirect
           this.authService.saveToken(response.token);
           this.role = this.authService.getRole();
+          this.authService.saveName();
           this.toastService.showSuccessToast('Login successful');
           this.authService.getRole() === 'Admin'
             ? this.router.navigate(['admin-dashboard'])

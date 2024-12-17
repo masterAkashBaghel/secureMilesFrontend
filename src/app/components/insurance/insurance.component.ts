@@ -89,7 +89,7 @@ export class InsuranceComponent implements OnInit {
         (error) => {
           this.errorMessage =
             'Failed to save vehicle details. Please try again.';
-          this.toastService.showErrorToast(this.errorMessage);
+          // this.toastService.showErrorToast(this.errorMessage);
         }
       );
     }

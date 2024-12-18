@@ -1,38 +1,44 @@
 .hero-section {
-    background: linear-gradient(
-      135deg,
-      rgb(32, 18, 58),
-      rgb(56, 31, 105),
-      rgb(64, 35, 118)
-    );
-    color: white;
-   
-    padding: 50px 0;
-  }
-  
-  .hero-text h1 .highlight {
-    color: rgb(255, 200, 0);
-  }
-  
-  .hero-text p {
-    font-size: 1.2rem;
-  }
-  
-  .hero-text .btn {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 10px 30px;
-  }
-  
-  .carousel img {
-    border-radius: 10px;
-    max-height: 400px;
-    object-fit: cover;
-  }
-  
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-  }
-  
+  background: linear-gradient(
+    135deg,
+    rgb(32, 18, 58),
+    rgb(56, 31, 105),
+    rgb(64, 35, 118)
+  );
+  color: white;
+
+  padding: 50px 0;
+}
+
+.hero-text h1 .highlight {
+  color: rgb(255, 200, 0);
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+}
+
+.hero-text .btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 30px;
+  border-radius: 40px;
+}
+
+/* button hover  color */
+.hero-text .btn:hover {
+  background-color: rgb(153, 0, 255);
+  color: rgb(3, 1, 8);
+}
+
+.carousel img {
+  border-radius: 10px;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}

@@ -40,7 +40,6 @@ export class VehicleCarouselComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.toastService.showErrorToast('Failed to fetch vehicles');
         console.error('Error fetching vehicles:', err);
         this.isLoading = false;
         this.noVehiclesFound = true;

@@ -66,3 +66,7 @@
   background-color: #138496;
   border-color: #117a8b;
 }
+.table thead th {
+  background-color: #50067a;
+  color: white;
+}

@@ -1,8 +1,13 @@
 <!-- admin-policies.component.html -->
 <div class="container mt-4">
-  <h2 class="text-center" style="color: #6c757d">
-    <i class="fas fa-file-alt"></i> Policies in the SecureMiles System
+  <h2 class="mb-4" style="color: #2f1a56">
+    <i class="fas fa-envelope"></i> Policies in SecureMiles
   </h2>
+  <p class="text-muted">
+    <i class="fas fa-tasks"></i>
+    Here you can view insurance policies. Click on "View Details" to see more
+    information about each policy.
+  </p>
   <hr />
 
   <!-- Policies Table -->
@@ -37,8 +42,17 @@
           >
             {{ policy.policyEndDate | date : "yyyy-MM-dd" }}
           </td>
-          <td>{{ policy.status || "Unknown" }}</td>
-          <td>{{ policy.user.name }}</td>
+          <td
+            [ngClass]="{
+              'text-success': policy.status === 'Active',
+              'text-danger': policy.status !== 'Active'
+            }"
+          >
+            {{ policy.status || "Unknown" }}
+          </td>
+          <td style="color: #2f1a56; font-synthesis-weight: bold">
+            {{ policy.user.name }}
+          </td>
           <td>{{ policy.vehicle.make }} {{ policy.vehicle.model }}</td>
           <td>
             <button

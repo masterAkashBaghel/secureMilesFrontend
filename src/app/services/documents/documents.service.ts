@@ -50,7 +50,7 @@ export class DocumentsService {
         body: [
           ['Policy ID', policy.policyId || 'N/A'],
           ['Policy Type', policy.policyType || 'N/A'],
-          ['Coverage Amount', `Rs${policy.coverageAmount || 'N/A'}`],
+
           ['Premium Amount', `Rs${policy.premiumAmount || 'N/A'}`],
           ['Policy Start Date', policy.policyStartDate || 'N/A'],
           ['Policy End Date', policy.policyEndDate || 'N/A'],

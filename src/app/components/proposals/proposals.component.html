@@ -27,15 +27,13 @@
               ><br />
               <strong><i class="fas fa-shield-alt"></i> Coverage:</strong>
               <span class="text-success"
-                >${{ proposal.requestedCoverage | number }}</span
+                >Rs{{ proposal.requestedCoverage | number }}</span
               ><br />
               <strong><i class="fas fa-info-circle"></i> Status: </strong>
               <span class="text-warning">{{ proposal.status }}</span
               ><br />
-              <strong
-                ><i class="fas fa-dollar-sign"></i> Premium Amount:</strong
-              >
-              <span class="text-danger">${{ proposal.premiumAmount }}</span
+              <strong><i class="fas fa-rupee-sign"></i> Premium Amount:</strong>
+              <span class="text-danger">Rs{{ proposal.premiumAmount }}</span
               ><br />
               <strong><i class="fas fa-file-alt"></i> Policy Type:</strong>
               <span class="text-secondary">{{ proposal.policyType }}</span
@@ -125,8 +123,8 @@
             </div>
             <div class="col-6">
               <p>
-                <i class="fas fa-dollar-sign text-primary"></i>
-                <strong> Coverage:</strong> ${{
+                <i class="fas fa-rupee-signtext-primary"></i>
+                <strong> Coverage:</strong> Rs{{
                   selectedProposal?.requestedCoverage | number
                 }}
               </p>
@@ -153,10 +151,10 @@
             </div>
             <div class="col-6">
               <p>
-                <i class="fas fa-dollar-sign text-primary"></i>
+                <i class="fas fa-rupee-sign text-primary"></i>
                 <strong> Premium Amount:</strong>
                 <span class="text-danger"
-                  >${{ selectedProposal?.premiumAmount }}</span
+                  >Rs{{ selectedProposal?.premiumAmount }}</span
                 >
               </p>
             </div>

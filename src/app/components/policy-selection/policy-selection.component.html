@@ -30,11 +30,11 @@
             <p class="card-text">
               <strong>Coverage:</strong> {{ policy.policyCoverage }}
             </p>
-            <p class="card-text">
+            <!-- <p class="card-text">
               <strong>Coverage Amount:</strong> ${{ policy.coverageAmount }}
-            </p>
+            </p> -->
             <p class="card-text">
-              <strong>Premium:</strong> ${{ policy.premiumAmount }}
+              <strong>Premium:</strong> Rs{{ policy.premiumAmount }}
             </p>
             <ul>
               <li *ngFor="let addOn of policy.addOns">

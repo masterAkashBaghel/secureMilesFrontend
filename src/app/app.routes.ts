@@ -10,7 +10,6 @@ import { BikeInsuranceComponent } from './components/bike-insurance/bike-insuran
 import { TruckInsuranceComponent } from './components/truck-insurance/truck-insurance.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-
 import { ProfileComponent } from './components/profile/profile.component';
 import { InsuranceComponent } from './components/insurance/insurance.component';
 import { ProposalComponent } from './components/proposals/proposals.component';

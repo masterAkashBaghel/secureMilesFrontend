@@ -2,7 +2,8 @@
   <h1 class="mb-4 mt-4"><i class="fas fa-file-alt"></i> My Policies</h1>
   <p>
     <i class="fas fa-info-circle"></i> For more information about your policies,
-    please contact our support team or visit our <a href="/help">help page</a>.
+    please contact our support team or visit our
+    <a href="/contact">help page</a>.
   </p>
   <div class="row policy-list">
     <div *ngFor="let policy of policies" class="col-md-6">
@@ -24,11 +25,11 @@
             <strong class="label">Type:</strong>
             <span class="value">{{ policy.policyType }}</span>
           </p>
-          <p>
+          <!-- <p>
             <i class="fas fa-shield-alt icon"></i>
             <strong class="label">Coverage:</strong>
             <span class="value">₹{{ policy.coverageAmount }}</span>
-          </p>
+          </p> -->
           <p>
             <i class="fas fa-money-bill-wave icon"></i>
             <strong class="label">Premium:</strong>

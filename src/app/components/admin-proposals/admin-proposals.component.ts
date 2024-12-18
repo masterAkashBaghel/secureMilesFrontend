@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-admin-proposals',
@@ -23,7 +24,10 @@ export class AdminProposalsComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10;
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.fetchProposals(this.currentPage, this.pageSize);
@@ -73,7 +77,7 @@ export class AdminProposalsComponent implements OnInit {
       this.adminService
         .approveProposal(this.selectedProposal.proposalId)
         .subscribe(() => {
-          alert('Proposal approved successfully!');
+          this.toast.showSuccessToast('Proposal approved successfully!');
           this.fetchProposals(this.currentPage, this.pageSize);
           this.closeModal();
         });
@@ -85,7 +89,7 @@ export class AdminProposalsComponent implements OnInit {
       this.adminService
         .rejectProposal(this.selectedProposal.proposalId)
         .subscribe(() => {
-          alert('Proposal rejected successfully!');
+          this.toast.showErrorToast('Proposal rejected successfully!');
           this.fetchProposals(this.currentPage, this.pageSize);
           this.closeModal();
         });

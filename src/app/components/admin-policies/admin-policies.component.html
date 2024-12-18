@@ -15,8 +15,8 @@
         <tr>
           <th><i class="fas fa-id-badge"></i> Policy ID</th>
           <th><i class="fas fa-file-alt"></i> Policy Type</th>
-          <th><i class="fas fa-dollar-sign"></i> Coverage Amount</th>
-          <th><i class="fas fa-dollar-sign"></i> Premium Amount</th>
+          <!-- <th><i class="fas fa-dollar-sign"></i> Coverage Amount</th> -->
+          <th><i class="fas fa-rupee-sign"></i> Premium Amount</th>
           <th><i class="fas fa-calendar-alt"></i> Start Date</th>
           <th><i class="fas fa-calendar-alt"></i> End Date</th>
           <th><i class="fas fa-info-circle"></i> Status</th>
@@ -29,7 +29,7 @@
         <tr *ngFor="let policy of policies" style="color: black">
           <td>{{ policy.policyId }}</td>
           <td>{{ policy.policyType }}</td>
-          <td>{{ policy.coverageAmount }}</td>
+          <!-- <td>{{ policy.coverageAmount }}</td> -->
           <td>{{ policy.premiumAmount }}</td>
           <td>{{ policy.policyStartDate | date : "yyyy-MM-dd" }}</td>
           <td

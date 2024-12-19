@@ -1,65 +1,121 @@
 <section class="features-section py-5">
   <div class="container">
-    <h2 class="text-center mb-2 headingColor fw-bold">Explore Our Features</h2>
-    <p class="text-center mb-4 headingColor font-awesome">
-      SecureMiles offers a range of insurance products to protect your vehicles.
-      Choose the right plan for your car, bike, or truck today.
-    </p>
-    <div class="row">
+    <div class="features-container">
       <!-- Feature Card 1 -->
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="feature-card d-flex align-items-center p-3">
+      <div class="service-card-wrapper col-lg-6 col-md-12 mb-4">
+        <div class="service-card d-flex align-items-center p-3">
+          <div class="service-content">
+            <h5 class="service-title">Check Out Car Insurance</h5>
+            <p class="service-desc">
+              Protect your car with comprehensive coverage and fast claims.
+            </p>
+            <a [routerLink]="['/car-insurance']" class="custom-link2">
+              SecureMiles Car Insurance</a
+            >
+          </div>
+
           <img
             src="/public/assets/images/carEx.png"
             alt="Car Insurance"
-            class="feature-img me-3"
-            style="width: 200px"
+            class="service-img me-3"
+            style="width: 350px"
           />
-          <div>
-            <h5 class="feature-title">Car Insurance</h5>
-            <p class="feature-desc">
-              Protect your car with comprehensive coverage and fast claims.
-            </p>
-            <a [routerLink]="['/car-insurance']" class="custom-link">Explore</a>
-          </div>
         </div>
       </div>
 
       <!-- Feature Card 2 -->
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="feature-card d-flex align-items-center p-3">
+      <div class="service-card-wrapper col-lg-6 col-md-12 mb-4">
+        <div class="service-card d-flex align-items-center p-3">
           <img
             src="/public/assets/images/bikeEx.png"
             alt="Bike Insurance"
-            class="feature-img me-3"
-            style="width: 200px"
+            class="service-img me-3"
+            style="width: 350px"
           />
-          <div>
-            <h5 class="feature-title">Bike Insurance</h5>
-            <p class="feature-desc">
+          <div class="service-content">
+            <h5 class="service-title">Want to Insure Your Bike?</h5>
+            <p class="service-desc">
               Secure your bike with affordable premiums and reliable coverage.
             </p>
-            <a [routerLink]="['/bike-insurance']" class="custom-link">Explore</a>
+            <a [routerLink]="['/bike-insurance']" class="custom-link2">
+              Get Bike Insurance</a
+            >
           </div>
         </div>
       </div>
 
       <!-- Feature Card 3 -->
-      <div class="col-lg-4 col-md-6 mb-4">
-        <div class="feature-card d-flex align-items-center p-3">
+      <div class="service-card-wrapper col-lg-6 col-md-12 mb-4">
+        <div class="service-card d-flex align-items-center p-3">
+          <div class="service-content">
+            <h5 class="service-title">Do you have a commercial vehicle?</h5>
+            <p class="service-desc">
+              Comprehensive plans for your commercial vehicles.
+            </p>
+            <a [routerLink]="['/truck-insurance']" class="custom-link2">
+              Commercial Vehicle Insurance
+            </a>
+          </div>
           <img
             src="/public/assets/images/truckEx.png"
             alt="Truck Insurance"
-            class="feature-img me-3"
-            style="width: 200px"
+            class="service-img me-3"
+            style="width: 350px"
           />
-          <div>
-            <h5 class="feature-title">Truck Insurance</h5>
-            <p class="feature-desc">
-              Comprehensive plans for your commercial vehicles.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-2 headingColor fw-bold">Our Services</h2>
+    <p class="text-center mb-4 headingColor font-awesome">
+      We offer a variety of services to help you manage your vehicle needs.
+    </p>
+    <div class="services-container">
+      <!-- Service Card 1 -->
+      <div class="service-card-wrapper col-lg-6 col-md-12 mb-4">
+        <div class="service-card d-flex align-items-center p-3">
+          <img
+            src="/public/assets/images/challan.png"
+            alt="Check Your Challans Online"
+            class="service-img me-3"
+            style="width: 350px"
+          />
+          <div class="service-content">
+            <h5 class="service-title">
+              Do You Have any Challans? Lets find it out
+            </h5>
+            <p class="service-desc">
+              Easily check and pay your vehicle challans online.
             </p>
-            <a href="/truck-insurance" class="custom-link">Explore</a>
+            <a [routerLink]="['/check-challans']" class="custom-link2"
+              >Check Your Pending Challans</a
+            >
           </div>
+        </div>
+      </div>
+
+      <!-- Service Card 2 -->
+      <div class="service-card-wrapper col-lg-6 col-md-12 mb-4">
+        <div class="service-card d-flex align-items-center p-3">
+          <div class="service-content">
+            <h5 class="service-title">Want to know your vehicle details?</h5>
+            <p class="service-desc">
+              Access detailed information about your vehicle.
+            </p>
+            <a [routerLink]="['/vehicle-details']" class="custom-link2"
+              >Get Your Vehicle Details</a
+            >
+          </div>
+          <img
+            src="/public/assets/images/details.png"
+            alt="Get Your Vehicle Details"
+            class="service-img me-3"
+            style="width: 350px"
+          />
         </div>
       </div>
     </div>

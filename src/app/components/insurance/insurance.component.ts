@@ -28,6 +28,7 @@ export class InsuranceComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
   isPolicySelectionVisible = false;
+  today: string = new Date().toISOString().split('T')[0];
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +59,7 @@ export class InsuranceComponent implements OnInit {
       engineNumber: ['', Validators.required],
       color: ['', Validators.required],
       fuelType: ['', Validators.required],
-      purchaseDate: ['', Validators.required],
+      //no future dates allowed
       marketValue: ['', [Validators.required, Validators.min(0)]],
     });
 

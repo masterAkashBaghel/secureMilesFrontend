@@ -2,379 +2,348 @@
   <div *ngIf="!isPolicySelectionVisible">
     <div class="text-center mb-4">
       <h2 style="color: #2f1a56">
-        <i class="fas fa-shield fw-bold"></i> Add Your Vehicle Details to Get a
-        Quote
+        <i class="fas fa-shield fw-bold"></i> Add Your Vehicle Details
       </h2>
+      <!-- Progress bar -->
+      <div class="progress mt-4" style="height: 3px">
+        <div
+          class="progress-bar"
+          role="progressbar"
+          [style.width]="(currentStep / totalSteps) * 100 + '%'"
+        ></div>
+      </div>
+      <p class="mt-2">Step {{ currentStep }} of {{ totalSteps }}</p>
     </div>
+
     <div class="main">
       <div class="form-container glassmorphic">
-        <form
-          [formGroup]="vehicleForm"
-          (ngSubmit)="submitVehicleDetails()"
-          class="mt-4"
-        >
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="type" class="form-label">
-                Vehicle Type
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The type of vehicle (e.g., car, truck, motorcycle)."
-                  style="color: rgb(51, 83, 163)"
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-car"></i></span>
-                <select id="type" formControlName="type" class="form-select">
-                  <option value="">Select Vehicle Type</option>
-                  <option value="Car">Car</option>
-                  <option value="Bike">Bike</option>
-                  <option value="Truck">Truck</option>
-                </select>
+        <form [formGroup]="vehicleForm" (ngSubmit)="submitVehicleDetails()">
+          <!-- Step 1: Basic Vehicle Info -->
+          <div *ngIf="currentStep === 1" [@fadeSlide]>
+            <h4 class="mb-4">
+              <i class="fas fa-car"></i> Basic Vehicle Information
+            </h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <!-- Vehicle Type field -->
+                <label for="type" class="form-label">
+                  Vehicle Type
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Select your vehicle type"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-car"></i
+                  ></span>
+                  <select id="type" formControlName="type" class="form-select">
+                    <option value="">Select Vehicle Type</option>
+                    <option value="Car">Car</option>
+                    <option value="Bike">Bike</option>
+                    <option value="Truck">Truck</option>
+                  </select>
+                </div>
               </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('type')?.invalid &&
-                  vehicleForm.get('type')?.touched
-                "
-                class="text-danger"
-              >
-                Vehicle type is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="model" class="form-label">
-                Model
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The model of the vehicle (e.g., Civic, Corolla)."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-list-alt"></i
-                ></span>
-                <input
-                  type="text"
-                  id="model"
-                  class="form-control"
-                  formControlName="model"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('model')?.invalid &&
-                  vehicleForm.get('model')?.touched
-                "
-                class="text-danger"
-              >
-                Model is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="make" class="form-label">
-                Make
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The manufacturer of the vehicle (e.g., Honda, Toyota)."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-industry"></i
-                ></span>
-                <input
-                  type="text"
-                  id="make"
-                  class="form-control"
-                  formControlName="make"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('make')?.invalid &&
-                  vehicleForm.get('make')?.touched
-                "
-                class="text-danger"
-              >
-                Make is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="year" class="form-label">
-                Year
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The year the vehicle was manufactured."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-calendar-alt"></i
-                ></span>
-                <input
-                  type="number"
-                  id="year"
-                  class="form-control"
-                  formControlName="year"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('year')?.invalid &&
-                  vehicleForm.get('year')?.touched
-                "
-                class="text-danger"
-              >
-                Year is required and must be between 1900 and the current year.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="registrationNumber" class="form-label">
-                Registration Number
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The registration number of the vehicle."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-id-card"></i
-                ></span>
-                <input
-                  type="text"
-                  id="registrationNumber"
-                  class="form-control"
-                  formControlName="registrationNumber"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('registrationNumber')?.invalid &&
-                  vehicleForm.get('registrationNumber')?.touched
-                "
-                class="text-danger"
-              >
-                Registration number is required and must be alphanumeric.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="chassisNumber" class="form-label">
-                Chassis Number
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The chassis number of the vehicle."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-cogs"></i
-                ></span>
-                <input
-                  type="text"
-                  id="chassisNumber"
-                  class="form-control"
-                  formControlName="chassisNumber"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('chassisNumber')?.invalid &&
-                  vehicleForm.get('chassisNumber')?.touched
-                "
-                class="text-danger"
-              >
-                Chassis number is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="engineNumber" class="form-label">
-                Engine Number
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The engine number of the vehicle."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-cog"></i></span>
-                <input
-                  type="text"
-                  id="engineNumber"
-                  class="form-control"
-                  formControlName="engineNumber"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('engineNumber')?.invalid &&
-                  vehicleForm.get('engineNumber')?.touched
-                "
-                class="text-danger"
-              >
-                Engine number is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="color" class="form-label">
-                Color
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The color of the vehicle."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-palette"></i
-                ></span>
-                <input
-                  type="text"
-                  id="color"
-                  class="form-control"
-                  formControlName="color"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('color')?.invalid &&
-                  vehicleForm.get('color')?.touched
-                "
-                class="text-danger"
-              >
-                Color is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="fuelType" class="form-label">
-                Fuel Type
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The type of fuel the vehicle uses (e.g., petrol, diesel)."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-gas-pump"></i
-                ></span>
-                <select
-                  id="fuelType"
-                  formControlName="fuelType"
-                  class="form-select"
-                >
-                  <option value="">Select Fuel Type</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Electric">Electric</option>
-                  <option value="Hybrid">Hybrid</option>
-                </select>
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('fuelType')?.invalid &&
-                  vehicleForm.get('fuelType')?.touched
-                "
-                class="text-danger"
-              >
-                Fuel type is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="purchaseDate" class="form-label">
-                Purchase Date
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The date the vehicle was purchased."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text">
-                  <i class="fas fa-calendar-check"></i>
-                </span>
-                <input
-                  type="date"
-                  id="purchaseDate"
-                  class="form-control"
-                  formControlName="purchaseDate"
-                  [max]="today"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('purchaseDate')?.invalid &&
-                  vehicleForm.get('purchaseDate')?.touched
-                "
-                class="text-danger"
-              >
-                Purchase date is required.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="marketValue" class="form-label">
-                Market Value
-                <i
-                  class="fas fa-info-circle"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="The current market value of the vehicle."
-                ></i>
-              </label>
-              <div class="input-group">
-                <span class="input-group-text"
-                  ><i class="fas fa-rupee-sign"></i
-                ></span>
 
-                <input
-                  type="number"
-                  id="marketValue"
-                  class="form-control"
-                  formControlName="marketValue"
-                />
-              </div>
-              <div
-                *ngIf="
-                  vehicleForm.get('marketValue')?.invalid &&
-                  vehicleForm.get('marketValue')?.touched
-                "
-                class="text-danger"
-              >
-                Market value is required and must be a positive number.
+              <div class="col-md-6">
+                <!-- Make field -->
+                <label for="make" class="form-label">
+                  Make
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Vehicle manufacturer"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-industry"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="make"
+                    class="form-control"
+                    formControlName="make"
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            class="btn btn-primary mt-3"
-            [disabled]="vehicleForm.invalid"
-          >
-            Submit
-          </button>
+
+          <!-- Step 2: Vehicle Details -->
+          <div *ngIf="currentStep === 2" [@fadeSlide]>
+            <h4 class="mb-4">
+              <i class="fas fa-info-circle"></i> Vehicle Details
+            </h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="model" class="form-label">
+                  Model
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Vehicle model name"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-car-side"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="model"
+                    class="form-control"
+                    formControlName="model"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    vehicleForm.get('model')?.invalid &&
+                    vehicleForm.get('model')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Model is required.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="year" class="form-label">
+                  Year
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Manufacturing year"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-calendar"></i
+                  ></span>
+                  <input
+                    type="number"
+                    id="year"
+                    class="form-control"
+                    formControlName="year"
+                    [max]="currentYear"
+                    [min]="1900"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    vehicleForm.get('year')?.invalid &&
+                    vehicleForm.get('year')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Valid year between 1900 and current year is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Registration Info -->
+          <div *ngIf="currentStep === 3" [@fadeSlide]>
+            <h4 class="mb-4">
+              <i class="fas fa-id-card"></i> Registration Information
+            </h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="registrationNumber" class="form-label">
+                  Registration Number
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Vehicle registration number"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-id-card"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="registrationNumber"
+                    class="form-control"
+                    formControlName="registrationNumber"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    vehicleForm.get('registrationNumber')?.invalid &&
+                    vehicleForm.get('registrationNumber')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Valid registration number is required.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="chassisNumber" class="form-label">
+                  Chassis Number
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Vehicle chassis number"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-barcode"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="chassisNumber"
+                    class="form-control"
+                    formControlName="chassisNumber"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    vehicleForm.get('chassisNumber')?.invalid &&
+                    vehicleForm.get('chassisNumber')?.touched
+                  "
+                  class="text-danger"
+                >
+                  Chassis number is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Technical Details -->
+          <div *ngIf="currentStep === 4" [@fadeSlide]>
+            <h4 class="mb-4"><i class="fas fa-cogs"></i> Technical Details</h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="engineNumber" class="form-label">
+                  Engine Number
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Vehicle engine number"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-engine"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="engineNumber"
+                    class="form-control"
+                    formControlName="engineNumber"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="fuelType" class="form-label">
+                  Fuel Type
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Type of fuel"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-gas-pump"></i
+                  ></span>
+                  <select
+                    id="fuelType"
+                    formControlName="fuelType"
+                    class="form-select"
+                  >
+                    <option value="">Select Fuel Type</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="color" class="form-label">
+                  Color
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Vehicle color"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-palette"></i
+                  ></span>
+                  <input
+                    type="text"
+                    id="color"
+                    class="form-control"
+                    formControlName="color"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="marketValue" class="form-label">
+                  Market Value
+                  <i
+                    class="fas fa-info-circle"
+                    data-bs-toggle="tooltip"
+                    title="Current market value"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text"
+                    ><i class="fas fa-rupee-sign"></i
+                  ></span>
+                  <input
+                    type="number"
+                    id="marketValue"
+                    class="form-control"
+                    formControlName="marketValue"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="d-flex justify-content-between mt-4">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              *ngIf="currentStep > 1"
+              (click)="previousStep()"
+            >
+              <i class="fas fa-arrow-left"></i> Previous
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              *ngIf="currentStep < totalSteps"
+              (click)="nextStep()"
+              [disabled]="!isCurrentStepValid()"
+            >
+              Next <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-success"
+              *ngIf="currentStep === totalSteps"
+              [disabled]="vehicleForm.invalid"
+            >
+              Submit <i class="fas fa-check"></i>
+            </button>
+          </div>
         </form>
-      </div>
-      <div class="image-container">
-        <img
-          src="/public/assets/images/insurance.png"
-          alt="Vehicle"
-          class="img-fluid mt-5"
-        />
       </div>
     </div>
   </div>

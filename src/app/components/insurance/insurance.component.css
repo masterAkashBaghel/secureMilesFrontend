@@ -1,39 +1,147 @@
-.glassmorphic {
-  background: linear-gradient(135deg, #e2daea, #eaedf1, #EBE8F7);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-}
-
-.main {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 80%;
+/* Container Styles */
+.container {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
 }
 
+/* Glassmorphic Effect */
+.glassmorphic {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 15px;
+  padding: 2rem;
+}
+
+/* Form Container */
 .form-container {
-  flex: 1;
-  margin-right: 20px;
+  position: relative;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
 }
 
-.image-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-container img {
-  max-width: 100%;
-  height: auto;
+/* Progress Bar */
+.progress {
+  height: 4px !important;
+  background-color: #e9ecef;
   border-radius: 10px;
+  margin: 2rem 0;
 }
 
- 
+.progress-bar {
+  background-color: #2f1a56;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Form Elements */
+.form-label {
+  font-weight: 500;
+  color: #2f1a56;
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #2f1a56;
+  box-shadow: 0 0 0 0.2rem rgba(47, 26, 86, 0.25);
+}
+
+/* Input Groups */
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1.5px solid #ced4da;
+  color: #2f1a56;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #2f1a56;
+  border-color: #2f1a56;
+}
+
+.btn-primary:hover {
+  background-color: #231340;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(47, 26, 86, 0.15);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+/* Animation Classes */
+.fade-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Validation States */
+.form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.form-control.ng-valid.ng-touched {
+  border-color: #28a745;
+}
+
+/* Icons */
+.fas {
+  margin-right: 0.5rem;
+}
+
+/* Tooltip Customization */
+.tooltip {
+  font-size: 0.875rem;
+}
+
+/* Step Indicator */
+.step-indicator {
+  text-align: center;
+  color: #2f1a56;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}

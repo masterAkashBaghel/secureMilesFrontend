@@ -74,7 +74,15 @@ export class InsuranceComponent implements OnInit {
         ],
       ],
       // Step 2
-      model: ['', Validators.required],
+      model: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[A-Za-z][A-Za-z\\s-]*$'),
+          Validators.minLength(2),
+          Validators.maxLength(50),
+        ],
+      ],
       year: [
         '',
         [
@@ -87,15 +95,62 @@ export class InsuranceComponent implements OnInit {
       // Step 3
       registrationNumber: [
         '',
-        [Validators.required, Validators.pattern('^[A-Z0-9]{1,10}$')],
+        [
+          Validators.required,
+          Validators.pattern('^[A-Z]{2}[-][0-9]{2}[-][A-Z]{2}[-][0-9]{4}$'), // Format: MH-12-AB-1234
+          Validators.minLength(13),
+          Validators.maxLength(13),
+        ],
       ],
-      chassisNumber: ['', Validators.required],
+
+      chassisNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[A-HJ-NPR-Z0-9]{17}$'), // International VIN format
+          Validators.minLength(17),
+          Validators.maxLength(17),
+        ],
+      ],
 
       // Step 4
-      engineNumber: ['', Validators.required],
-      color: ['', Validators.required],
-      fuelType: ['', Validators.required],
-      marketValue: ['', [Validators.required, Validators.min(0)]],
+      engineNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[A-Z0-9]{5,17}$'), // Standard engine number format
+          Validators.minLength(5),
+          Validators.maxLength(17),
+        ],
+      ],
+
+      color: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[A-Za-z\\s-]{3,20}$'), // Only letters, spaces, hyphens
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
+      ],
+
+      fuelType: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^(Petrol|Diesel|Electric|Hybrid)$'), // Only allowed values
+        ],
+      ],
+
+      marketValue: [
+        '',
+        [
+          Validators.required,
+          Validators.min(1000), // Minimum reasonable value
+          Validators.max(100000000), // 10 Crore maximum
+          Validators.pattern('^[0-9]*$'), // Only numbers
+        ],
+      ],
     });
   }
 

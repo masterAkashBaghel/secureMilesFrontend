@@ -1,79 +1,157 @@
 .contact-section {
-  background: linear-gradient(135deg, #ebebf7, #f5f5fc, #ffffff);
-  padding: 50px 0;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.contact-section h2 {
-  color: #333;
-  font-weight: bold;
+.animated-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: gray;
+  opacity: 0.1;
+  z-index: -1;
+  animation: gradientBG 15s ease infinite;
 }
 
-.contact-section .form-control {
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.gradient-text {
+  background: linear-gradient(45deg, #1e3378, #8c1ba8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
-.contact-section .form-label {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
+.contact-card,
+.contact-info-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
-.contact-section .form-label i {
-  margin-right: 10px;
-  color: #564392;
+.input-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+
+  .form-control {
+    border: none;
+    border-bottom: 2px solid #ddd;
+    border-radius: 0;
+    padding: 0.75rem 0;
+    background: transparent;
+    transition: all 0.3s ease;
+
+    &:focus {
+      box-shadow: none;
+      border-color: #430569;
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: left;
+    transition: all 0.3s ease;
+    color: #666;
+  }
+
+  .form-control:focus ~ label,
+  .form-control:valid ~ label {
+    transform: translateY(-1.5rem) scale(0.85);
+    color: #7c13a2;
+  }
 }
 
-.contact-section button {
-  background-color: #10081b;
+.btn-gradient {
+  background: linear-gradient(45deg, #930c8f, #450a79);
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  transition: background-color 0.3s ease;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
 }
 
-.contact-section button:hover {
-  background-color: #564392;
-}
-
-.contact-section img {
-  max-width: 70%;
-  height: auto;
-  margin-top: 20px;
-}
-
-.contact-section h2 {
-  color: #333;
-  font-weight: bold;
+.social-links {
   display: flex;
   justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  .social-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #461775, #58368b);
+    color: white;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px) rotate(8deg);
+    }
+  }
+}
+
+.contact-item {
+  display: flex;
   align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  i {
+    font-size: 1.5rem;
+    color: #330852;
+  }
 }
 
-.contact-section h2 i {
-  margin-right: 10px;
-  color: #564392;
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.contact-section p {
-  color: #666;
-  font-size: 16px;
-}
-.glassmorphic-card {
-  background: rgba(232, 230, 230, 0.1);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: none;
-  max-width: 800px;
-  margin: 0 auto;
+.fade-in {
+  animation: fadeIn 1s ease-in;
 }
 
-.glassmorphic-card p {
-  color: #333;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-card,
+  .contact-info-card {
+    margin-bottom: 2rem;
+  }
 }

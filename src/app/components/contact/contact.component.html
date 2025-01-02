@@ -1,68 +1,121 @@
 <section id="contactSection" class="contact-section py-5">
+  <div class="animated-bg"></div>
   <div class="container">
-    <h2 class="text-center mb-3">
-      <i class="fas fa-paper-plane"></i> Get in Touch with Us!
+    <h2 class="text-center mb-4 fade-in">
+      <span class="gradient-text">Let's Connect!</span>
     </h2>
 
-    <div class="row align-items-center">
+    <div class="row align-items-center g-4">
       <!-- Contact Form -->
-      <div class="col-md-6">
-        <form (submit)="onSubmit()">
-          <div class="mb-3">
-            <label for="name" class="form-label">
-              <i class="fas fa-user"></i> Your Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              [(ngModel)]="contactForm.name"
-              name="name"
-              required
+      <div class="col-lg-6">
+        <div class="contact-card">
+          <form (submit)="onSubmit()" class="floating-labels">
+            <div class="form-group mb-4">
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  [(ngModel)]="contactForm.name"
+                  name="name"
+                  required
+                />
+                <label for="name">
+                  <i class="fas fa-user"></i> Your Name
+                </label>
+                <span class="focus-border"></span>
+              </div>
+            </div>
+
+            <div class="form-group mb-4">
+              <div class="input-wrapper">
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  [(ngModel)]="contactForm.email"
+                  name="email"
+                  required
+                />
+                <label for="email">
+                  <i class="fas fa-envelope"></i> Your Email
+                </label>
+                <span class="focus-border"></span>
+              </div>
+            </div>
+
+            <div class="form-group mb-4">
+              <div class="input-wrapper">
+                <textarea
+                  id="message"
+                  class="form-control"
+                  [(ngModel)]="contactForm.message"
+                  name="message"
+                  rows="5"
+                  required
+                ></textarea>
+                <label for="message">
+                  <i class="fas fa-comment"></i> Your Message
+                </label>
+                <span class="focus-border"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gradient">
+              <span>Send Message</span>
+              <i class="fas fa-paper-plane ms-2"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-lg-6">
+        <div class="contact-info-card">
+          <div class="social-links">
+            <a href="#" class="social-icon">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div class="contact-details">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>123 Deoria Gorakhpur<br />Uttar Pradesh UP, 274702</p>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <p>+91 955966132</p>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <p>contact&#64;securemiles.com</p>
+              </div>
+            </div>
+            <img
+              src="/public/assets/images/contact.png"
+              alt="Contact Us"
+              style="height: 300px"
             />
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">
-              <i class="fas fa-envelope"></i> Your Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              [(ngModel)]="contactForm.email"
-              name="email"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label for="message" class="form-label">
-              <i class="fas fa-comment"></i> Your Message
-            </label>
-            <textarea
-              id="message"
-              class="form-control"
-              [(ngModel)]="contactForm.message"
-              name="message"
-              rows="5"
-              required
-            ></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">
-            Send Message
-          </button>
-        </form>
+        </div>
       </div>
-      <!-- Contact Image -->
-      <div class="col-md-6 text-center">
-        <img src="/public/assets/images/contact.png" alt="Contact Us" />
-      </div>
-    </div>
-    <div class="card glassmorphic-card py-4 px-4">
-      <p class="text-center mb-2">
-        We'd love to hear from you. Whether you have a question about features,
-        pricing, need a demo, or anything else, our team is ready to answer all
-        your questions.
-      </p>
     </div>
   </div>
 </section>
